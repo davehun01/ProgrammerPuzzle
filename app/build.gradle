@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 26
@@ -47,4 +48,8 @@ dependencies {
 	
 	//GreenDAO
 	compile 'org.greenrobot:greendao:3.2.2'
+}
+
+greendao {
+   targetGenDir 'src/main/java'
 }
