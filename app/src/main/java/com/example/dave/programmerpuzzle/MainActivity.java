@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -20,6 +21,18 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView textView = (TextView) findViewById(R.id.text);
+
+        // Put this in a different thread or use AsyncSession in greenDAO.
+        // For Demo purpose, this query is made on main thread but it should in a different thread.
+        Puzzle user = ((Application)getApplication()).getDaoSession().getPuzzleDao().load(1L);
+
+        if(user != null){
+            textView.setText(user.getDescription());
+        }
+
+        /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,6 +53,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+         */
     }
 
     @Override
