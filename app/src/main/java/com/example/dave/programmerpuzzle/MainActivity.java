@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity
 
     NavigationView navigationView;
 
+    private final String MAIN_TITLE = "Programmer Puzzle";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         // For Demo purpose, this query is made on main thread but it should in a different thread.
         Puzzle puzzle = ((Application)getApplication()).getDaoSession().getPuzzleDao().load(1L);
 
-        textView.setText(puzzle.getDescription());
+        textView.setText(MAIN_TITLE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
