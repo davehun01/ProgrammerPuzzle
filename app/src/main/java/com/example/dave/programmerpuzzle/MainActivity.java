@@ -1,5 +1,7 @@
 package com.example.dave.programmerpuzzle;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,11 +17,16 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    @BindView(R.id.nav_view)
     NavigationView navigationView;
+
+    @BindView(R.id.mainMenuActivity_applicationTitle)
+    TextView applicationTitle;
 
     private final String MAIN_TITLE = "Programmer Puzzle";
 
@@ -28,14 +35,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        TextView textView = (TextView) findViewById(R.id.mainMenuActivity_applicationTitle);
+        ButterKnife.bind(this);
 
         // Put this in a different thread or use AsyncSession in greenDAO.
         // For Demo purpose, this query is made on main thread but it should in a different thread.
         Puzzle puzzle = ((Application)getApplication()).getDaoSession().getPuzzleDao().load(1L);
 
-        textView.setText(MAIN_TITLE);
+        applicationTitle.setText(MAIN_TITLE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -60,29 +66,23 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        //if (id == R.id.action_settings) return true;
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_newgame) {
+            // Handle the newgame action
+            Intent newGameIntent = new Intent(MainActivity.this, NewGameActivity.class);
+            //startActivity(newGameIntent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(newGameIntent);
+                startActivity(newGameIntent);
+            } else {
+                startService(newGameIntent);
+                startActivity(newGameIntent);
+            }
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

@@ -30,7 +30,7 @@
             android:layout_height="53dp"
             android:layout_centerHorizontal="true"
             android:layout_above="@id/mainMenuActivity_applicationTitle"
-            android:src="@mipmap/icon" />
+            android:src="@mipmap/ic_appicon" />
         <TextView android:id="@+id/mainMenuActivity_applicationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
