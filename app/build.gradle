@@ -25,7 +25,7 @@ configurations.all {
     }
 }
 
-def BUTTER_KNIFE_VERSION="8.5.1" //current version of butterknife
+def BUTTER_KNIFE_VERSION = "8.5.1" //current version of butterknife
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -36,20 +36,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-	
-	//ButterKnife
-	compile "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
-	annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
-	
-	//Lombok
-	provided 'org.projectlombok:lombok:1.16.18'
-	provided 'javax.annotation:jsr250-api:1.0'
-	annotationProcessor 'org.projectlombok:lombok:1.16.18'
-	
-	//GreenDAO
-	compile 'org.greenrobot:greendao:3.2.2'
+
+    //ButterKnife
+    compile "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
+
+    //Lombok
+    provided 'org.projectlombok:lombok:1.16.18'
+    provided 'javax.annotation:jsr250-api:1.0'
+    annotationProcessor 'org.projectlombok:lombok:1.16.18'
+
+    //GreenDAO
+    compile 'org.greenrobot:greendao:3.2.2'
 }
 
 greendao {
-   targetGenDir 'src/main/java'
+    targetGenDir 'src/main/java'
 }
