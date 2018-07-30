@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
         // Put this in a different thread or use AsyncSession in greenDAO.
         // For Demo purpose, this query is made on main thread but it should in a different thread.
         Puzzle puzzle = ((Application)getApplication()).getDaoSession().getPuzzleDao().load(1L);
+        //((Application) getApplication()).getDaoSession().getPuzzleDao().loadAll();
 
         applicationTitle.setText(MAIN_TITLE);
 
