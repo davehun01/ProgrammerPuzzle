@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -67,16 +66,15 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_newgame) {
-            // Handle the newgame action
             Intent newGameIntent = new Intent(MainActivity.this, NewGameActivity.class);
-            //startActivity(newGameIntent);
+            startActivity(newGameIntent);
+            /*
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(newGameIntent);
                 startActivity(newGameIntent);
@@ -84,16 +82,14 @@ public class MainActivity extends AppCompatActivity
                 startService(newGameIntent);
                 startActivity(newGameIntent);
             }
-        } else if (id == R.id.nav_gallery) {
+             */
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_howtoplay) {
+            Intent howToPlayIntent = new Intent(MainActivity.this, HowToPlayActivity.class);
+            startActivity(howToPlayIntent);
+        } else if (id == R.id.nav_highscore) {
+            Intent highScoreIntent = new Intent(MainActivity.this, HighScoreActivity.class);
+            startActivity(highScoreIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

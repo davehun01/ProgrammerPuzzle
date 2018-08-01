@@ -23,6 +23,12 @@
         <activity
             android:name=".NewGameActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HowToPlayActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HighScoreActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
