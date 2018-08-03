@@ -1,8 +1,10 @@
-package com.example.dave.programmerpuzzle;
+package com.example.dave.programmerpuzzle.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.dave.programmerpuzzle.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,7 +1,10 @@
-package com.example.dave.programmerpuzzle;
+package com.example.dave.programmerpuzzle.Application;
 
-import org.greenrobot.greendao.database.Database;
-import org.greenrobot.greendao.*;
+import com.example.dave.programmerpuzzle.DaoMaster;
+import com.example.dave.programmerpuzzle.DaoSession;
+import com.example.dave.programmerpuzzle.Persistence.DataCache;
+import com.example.dave.programmerpuzzle.Persistence.DaoManager;
+import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 
 public class Application extends android.app.Application {
     private DaoSession mDaoSession;

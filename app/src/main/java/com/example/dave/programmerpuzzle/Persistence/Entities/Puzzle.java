@@ -1,4 +1,4 @@
-package com.example.dave.programmerpuzzle;
+package com.example.dave.programmerpuzzle.Persistence.Entities;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;

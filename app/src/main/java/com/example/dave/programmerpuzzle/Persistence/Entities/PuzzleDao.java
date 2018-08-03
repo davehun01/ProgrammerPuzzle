@@ -1,9 +1,7 @@
-package com.example.dave.programmerpuzzle;
+package com.example.dave.programmerpuzzle.Persistence.Entities;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
-
-import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;

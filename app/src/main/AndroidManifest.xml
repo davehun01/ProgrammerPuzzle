@@ -3,7 +3,7 @@
     package="com.example.dave.programmerpuzzle">
 
     <application
-        android:name=".Application"
+        android:name=".Application.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,13 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewGameActivity"
+            android:name=".Activities.NewGameActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".HowToPlayActivity"
+            android:name=".Activities.HowToPlayActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".HighScoreActivity"
+            android:name=".Activities.HighScoreActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

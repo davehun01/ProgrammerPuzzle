@@ -1,7 +1,9 @@
-package com.example.dave.programmerpuzzle;
+package com.example.dave.programmerpuzzle.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.dave.programmerpuzzle.R;
 
 import butterknife.ButterKnife;
 
