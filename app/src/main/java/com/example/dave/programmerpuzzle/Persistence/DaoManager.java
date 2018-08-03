@@ -1,4 +1,8 @@
-package com.example.dave.programmerpuzzle;
+package com.example.dave.programmerpuzzle.Persistence;
+
+import com.example.dave.programmerpuzzle.DaoSession;
+import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
+import com.example.dave.programmerpuzzle.PuzzleDao;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package com.example.dave.programmerpuzzle;
+package com.example.dave.programmerpuzzle.Persistence;
+
+import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 
 import java.util.List;
 
