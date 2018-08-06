@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.dave.programmerpuzzle.Application.Application;
+import com.example.dave.programmerpuzzle.Application.MainApplication;
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 import com.example.dave.programmerpuzzle.R;
 
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity
 
         // Put this in a different thread or use AsyncSession in greenDAO.
         // For Demo purpose, this query is made on main thread but it should in a different thread.
-        Puzzle puzzle = ((Application)getApplication()).getDaoSession().getPuzzleDao().load(1L);
-        //((Application) getApplication()).getDaoSession().getPuzzleDao().loadAll();
+        Puzzle puzzle = ((MainApplication)getApplication()).getDaoSession().getPuzzleDao().load(1L);
+        //((MainApplication) getApplication()).getDaoSession().getPuzzleDao().loadAll();
 
         activityDesign();
 
