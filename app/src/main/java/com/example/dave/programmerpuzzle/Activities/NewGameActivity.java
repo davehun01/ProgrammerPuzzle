@@ -73,12 +73,12 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
         ButterKnife.bind(this);
 
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
+
         gameLogic = new GameLogic(this,
                 MainApplication.getInstance().getDataCache().getPuzzleList());
 
         fillLineList();
-
-
 
         puzzleDescription.setText("Test description. Test description. " +
                 "Test description. Test description. Test description." +
@@ -87,45 +87,30 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                 "Test description. Test description.");
 
         line_1.setText("public int average(List<Integer> numbers) {");
-        line_2.setText("if (numbers == null) {");
+        line_2.setText("for (int i = 0; i < numbers.size(); i++) {");
         line_3.setText("System.out.println('null reference!');");
-        line_4.setText("return -1;");
-        line_5.setText("}");
+        line_4.setText("int average = sum / numbers.size();");
+        line_5.setText("System.out.println('Empty list');");
         line_6.setText("if (numbers.isEmpty()) {");
-        line_7.setText("System.out.println('Empty list');");
-        line_8.setText("return -1;");
-        line_9.setText("}");
+        line_7.setText("sum += numbers.get(i);");
+        line_8.setText("if (numbers == null) {");
+        line_9.setText("return average;");
         line_10.setText("int sum = 0;");
-        line_11.setText("for (int i = 0; i < numbers.size(); i++) {");
-        line_12.setText("sum += numbers.get(i);");
+        line_11.setText("}");
+        line_12.setText("}");
         line_13.setText("}");
-        line_14.setText("int average = sum / numbers.size();");
-        line_15.setText("return average;");
-        line_15.setText("}");
+        line_14.setText("}");
+        line_15.setText("return -1;");
+        line_16.setText("return -1;");
+
     }
 
     private void fillLineList() {
-        lines.add(line_1);
-        lines.add(line_2);
-        lines.add(line_3);
-        lines.add(line_4);
-        lines.add(line_5);
-        lines.add(line_6);
-        lines.add(line_7);
-        lines.add(line_8);
-        lines.add(line_9);
-        lines.add(line_10);
-        lines.add(line_11);
-        lines.add(line_12);
-        lines.add(line_13);
-        lines.add(line_14);
-        lines.add(line_15);
-        lines.add(line_16);
-        lines.add(line_17);
-        lines.add(line_18);
-        lines.add(line_19);
-        lines.add(line_20);
-
+        lines.add(line_1);lines.add(line_2);lines.add(line_3);lines.add(line_4);
+        lines.add(line_5);lines.add(line_6);lines.add(line_7);lines.add(line_8);
+        lines.add(line_9);lines.add(line_10);lines.add(line_11);lines.add(line_12);
+        lines.add(line_13);lines.add(line_14);lines.add(line_15);lines.add(line_16);
+        lines.add(line_17);lines.add(line_18);lines.add(line_19);lines.add(line_20);
     }
 
     @Override

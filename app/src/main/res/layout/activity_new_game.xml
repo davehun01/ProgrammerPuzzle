@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorTeal"
     tools:context=".Activities.NewGameActivity">
 
     <ScrollView
@@ -18,7 +19,8 @@
             <TextView android:id="@+id/newGameActivity_PuzzleDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:textColor="@color/colorWhite"/>
 
             <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_1"
                 android:layout_width="wrap_content"

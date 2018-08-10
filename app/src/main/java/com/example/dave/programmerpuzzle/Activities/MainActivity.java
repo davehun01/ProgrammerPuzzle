@@ -82,23 +82,15 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_newgame) {
             Intent newGameIntent = new Intent(MainActivity.this, NewGameActivity.class);
             startActivity(newGameIntent);
-            /*
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(newGameIntent);
-                startActivity(newGameIntent);
-            } else {
-                startService(newGameIntent);
-                startActivity(newGameIntent);
-            }
-             */
-
         } else if (id == R.id.nav_howtoplay) {
             Intent howToPlayIntent = new Intent(MainActivity.this, HowToPlayActivity.class);
             startActivity(howToPlayIntent);
         } else if (id == R.id.nav_highscore) {
             Intent highScoreIntent = new Intent(MainActivity.this, HighScoreActivity.class);
             startActivity(highScoreIntent);
+        } else if (id == R.id.nav_settings) {
+            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settingsIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

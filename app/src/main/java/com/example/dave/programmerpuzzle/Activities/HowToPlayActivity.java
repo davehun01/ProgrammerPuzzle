@@ -15,5 +15,7 @@ public class HowToPlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_how_to_play);
 
         ButterKnife.bind(this);
+
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
     }
 }

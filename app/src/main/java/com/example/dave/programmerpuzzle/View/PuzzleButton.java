@@ -21,22 +21,16 @@ public class PuzzleButton extends AppCompatButton {
     public PuzzleButton(Context context) {
         super(context);
         setAllCaps(false);
-        setMinHeight(0);
-        setMinWidth(0);
     }
 
     public PuzzleButton(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
         setAllCaps(false);
-        setMinHeight(0);
-        setMinWidth(0);
     }
 
     public PuzzleButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setAllCaps(false);
-        setMinHeight(0);
-        setMinWidth(0);
     }
 
 }
