@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorTeal"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -37,8 +38,8 @@
             android:textAlignment="center"
             android:textSize="40sp"
             android:textStyle="bold"
-            android:textColor="@android:color/holo_green_dark"
-            android:shadowColor="@android:color/holo_green_dark"
+            android:textColor="@color/colorWhite"
+            android:shadowColor="@color/colorWhite"
             android:shadowDx="-4"
             android:shadowDy="-4"
             android:shadowRadius="2"

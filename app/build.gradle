@@ -51,5 +51,6 @@ dependencies {
 }
 
 greendao {
+    schemaVersion 2
     targetGenDir 'src/main/java'
 }

@@ -16,11 +16,15 @@ public class Puzzle {
     @Property
     private String code;
 
-    @Generated(hash = 1423291492)
-    public Puzzle(Long id, String description, String code) {
+    @Property
+    private String language;
+
+    @Generated(hash = 1949337785)
+    public Puzzle(Long id, String description, String code, String language) {
         this.id = id;
         this.description = description;
         this.code = code;
+        this.language = language;
     }
 
     @Generated(hash = 1758366711)
@@ -49,5 +53,13 @@ public class Puzzle {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getLanguage() {
+        return this.language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

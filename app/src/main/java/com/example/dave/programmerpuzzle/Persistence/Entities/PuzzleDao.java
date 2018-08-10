@@ -25,6 +25,7 @@ public class PuzzleDao extends AbstractDao<Puzzle, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Description = new Property(1, String.class, "description", false, "DESCRIPTION");
         public final static Property Code = new Property(2, String.class, "code", false, "CODE");
+        public final static Property Language = new Property(3, String.class, "language", false, "LANGUAGE");
     }
 
 
@@ -42,7 +43,8 @@ public class PuzzleDao extends AbstractDao<Puzzle, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"PUZZLE\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"DESCRIPTION\" TEXT," + // 1: description
-                "\"CODE\" TEXT);"); // 2: code
+                "\"CODE\" TEXT," + // 2: code
+                "\"LANGUAGE\" TEXT);"); // 3: language
     }
 
     /** Drops the underlying database table. */
@@ -69,6 +71,11 @@ public class PuzzleDao extends AbstractDao<Puzzle, Long> {
         if (code != null) {
             stmt.bindString(3, code);
         }
+ 
+        String language = entity.getLanguage();
+        if (language != null) {
+            stmt.bindString(4, language);
+        }
     }
 
     @Override
@@ -89,6 +96,11 @@ public class PuzzleDao extends AbstractDao<Puzzle, Long> {
         if (code != null) {
             stmt.bindString(3, code);
         }
+ 
+        String language = entity.getLanguage();
+        if (language != null) {
+            stmt.bindString(4, language);
+        }
     }
 
     @Override
@@ -101,7 +113,8 @@ public class PuzzleDao extends AbstractDao<Puzzle, Long> {
         Puzzle entity = new Puzzle( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // description
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // code
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // code
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // language
         );
         return entity;
     }
@@ -111,6 +124,7 @@ public class PuzzleDao extends AbstractDao<Puzzle, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setDescription(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setCode(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setLanguage(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     @Override

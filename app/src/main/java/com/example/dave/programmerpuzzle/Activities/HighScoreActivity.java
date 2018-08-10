@@ -15,5 +15,7 @@ public class HighScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_high_score);
 
         ButterKnife.bind(this);
+
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
     }
 }

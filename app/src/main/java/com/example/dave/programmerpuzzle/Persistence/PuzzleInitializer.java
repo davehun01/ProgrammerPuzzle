@@ -1,14 +1,9 @@
 package com.example.dave.programmerpuzzle.Persistence;
 
-import android.provider.ContactsContract;
-
-import com.example.dave.programmerpuzzle.DaoSession;
-import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
-
 public class PuzzleInitializer {
 
     private DataCache dataCache;
-    private boolean created = false;
+    private static boolean created = false;
 
     public PuzzleInitializer(DataCache dataCache) {
         this.dataCache = dataCache;
@@ -16,7 +11,12 @@ public class PuzzleInitializer {
 
     public void initPuzzles() {
         if (dataCache.getPuzzleList().size() == 0 || !created) {
+            dataCache.deleteAllPuzzles();
             //dataCache.createPuzzle(...);
         }
+    }
+
+    public void isCreated(boolean created) {
+        this.created = created;
     }
 }

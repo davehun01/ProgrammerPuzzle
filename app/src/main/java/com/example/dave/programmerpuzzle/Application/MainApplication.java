@@ -1,13 +1,10 @@
 package com.example.dave.programmerpuzzle.Application;
 
-import com.example.dave.programmerpuzzle.DaoMaster;
-import com.example.dave.programmerpuzzle.DaoSession;
-import com.example.dave.programmerpuzzle.GameLogic.GameLogic;
-import com.example.dave.programmerpuzzle.Persistence.DataCache;
 import com.example.dave.programmerpuzzle.Persistence.DaoManager;
+import com.example.dave.programmerpuzzle.Persistence.DataCache;
+import com.example.dave.programmerpuzzle.Persistence.Entities.DaoMaster;
+import com.example.dave.programmerpuzzle.Persistence.Entities.DaoSession;
 import com.example.dave.programmerpuzzle.Persistence.PuzzleInitializer;
-
-import lombok.Getter;
 
 public class MainApplication extends android.app.Application {
 
