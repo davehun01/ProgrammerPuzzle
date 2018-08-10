@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="ingame_category"
+        android:title="In-game">
+
+        <EditTextPreference
+            android:dialogTitle="Your Name"
+            android:title="Name"
+            android:inputType="textCapWords"
+            android:key="key_name"
+            android:summary="Player">
+        </EditTextPreference>
+
+        <ListPreference
+            android:title="Language"
+            android:key="key_language"
+            android:entries="@array/languages"
+            android:entryValues="@array/languages"
+            android:summary="%s">
+        </ListPreference>
+
+        <SwitchPreference
+            android:title="Sound"
+            android:key="key_sound"
+            android:editable="true">
+        </SwitchPreference>
+
+        <SwitchPreference
+            android:title="ELFELEJTETTEM"
+            android:key="key_sound"
+            android:editable="true">
+        </SwitchPreference>
+
+    </PreferenceCategory>
+</PreferenceScreen>
