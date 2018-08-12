@@ -28,7 +28,7 @@
 
         <SwitchPreference
             android:title="ELFELEJTETTEM"
-            android:key="key_sound"
+            android:key="key_x"
             android:editable="true">
         </SwitchPreference>
 
