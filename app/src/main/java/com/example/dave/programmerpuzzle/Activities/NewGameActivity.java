@@ -1,5 +1,8 @@
 package com.example.dave.programmerpuzzle.Activities;
 
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -66,6 +69,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     private GameLogic gameLogic;
 
+    private MediaPlayer soundPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,14 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
         gameLogic = new GameLogic(this,
                 MainApplication.getInstance().getDataCache().getPuzzleList());
+
+        /*
+        soundplayer:
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        if (sharedPreferences.getBoolean("key_sound",false) == true) {
+            soundPlayer = new MediaPlayer();
+        }
+         */
 
         fillLineList();
 
