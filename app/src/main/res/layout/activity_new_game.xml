@@ -13,186 +13,369 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/newgameActivity_RelLayout">
 
-            <TextView android:id="@+id/newGameActivity_PuzzleDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:textColor="@color/colorWhite"/>
+                <TextView android:id="@+id/newGameActivity_PuzzleDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/colorWhite"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_PuzzleDescription"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_PuzzleDescription"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_2"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_2"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_3"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_3"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_4"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_4"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_5"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_5"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_6"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_6"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_7"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_7"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_8"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_8"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_9"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_9"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_PuzzleDescription"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_PuzzleDescription"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_11"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_11"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_12"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_12"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_13"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_13"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_14"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_14"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_15"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_15"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_16"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_16"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_17"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_17"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_18"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_18"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
-            <com.example.dave.programmerpuzzle.View.PuzzleButton android:id="@+id/newGameActivity_Line_20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/Widget.AppCompat.Button"
-                android:layout_below="@id/newGameActivity_Line_19"
-                android:layout_toRightOf="@id/newGameActivity_Line_1"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                <com.example.dave.programmerpuzzle.View.PuzzleButton
+                    android:id="@+id/newGameActivity_Line_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Widget.AppCompat.Button"
+                    android:layout_below="@id/newGameActivity_Line_19"
+                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Line_10"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_2"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_3"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_4"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_5"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_6"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_7"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_8"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_9"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_10"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_11"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_12"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_13"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_14"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_15"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_16"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_17"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_18"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Button
+                    android:id="@+id/newGameActivity_Placeholder_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newGameActivity_Placeholder_19"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
 
         </RelativeLayout>
+
+
 
     </ScrollView>
 
