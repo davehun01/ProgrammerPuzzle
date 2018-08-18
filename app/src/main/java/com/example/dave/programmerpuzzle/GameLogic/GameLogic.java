@@ -31,7 +31,7 @@ public class GameLogic implements GameTimerInterface {
         gameTimer.start();
     }
 
-    private void newPuzzle() {
+    public void newPuzzle() {
         Random random = new Random();
         currentPuzzle = puzzleList.remove(random.nextInt(puzzleList.size()));
         gameLogicInterface.showPuzzle(currentPuzzle);

@@ -1,5 +1,7 @@
 package com.example.dave.programmerpuzzle.Persistence;
 
+import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
+
 public class PuzzleInitializer {
 
     private DataCache dataCache;
@@ -12,7 +14,7 @@ public class PuzzleInitializer {
     public void initPuzzles() {
         if (dataCache.getPuzzleList().size() == 0 || !created) {
             dataCache.deleteAllPuzzles();
-            //dataCache.createPuzzle(...);
+            dataCache.createPuzzle(new Puzzle(1L, "test description", "test code", "C++"));
         }
     }
 

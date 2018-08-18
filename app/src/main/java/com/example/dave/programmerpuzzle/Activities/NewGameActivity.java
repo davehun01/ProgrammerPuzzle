@@ -114,6 +114,9 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     @BindView(R.id.newgameActivity_RelLayout)
     ViewGroup viewGroup;
 
+    @BindView(R.id.newGameActivity_Timer)
+    TextView timer;
+
     private static int CURRENT_LINE = 0;
 
     private List<PuzzleButton> lines = new ArrayList<>();
@@ -163,6 +166,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                 " Test description. Test description. Test description. " +
                 "Test description. Test description. Test description. " +
                 "Test description. Test description.");
+
+        gameLogic.newPuzzle();
 
     }
 
@@ -275,11 +280,21 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     @Override
     public void showTimer(long timeLeft) {
+        long timeLeftSec = timeLeft / 1000;
+        long minutes = timeLeftSec / 60;
+        long seconds = timeLeftSec - minutes * 60;
+        if (seconds >= 10) {
+            timer.setText(minutes + ":" + seconds);
+        } else {
+            timer.setText(minutes + ":0" + seconds);
+        }
 
     }
 
     @Override
     public void setButtonsEnability(boolean enabled) {
-
+        for (PuzzleButton puzzleButton : lines) {
+            puzzleButton.setEnabled(enabled);
+        }
     }
 }
