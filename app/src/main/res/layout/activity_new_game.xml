@@ -17,10 +17,16 @@
             android:layout_height="wrap_content"
             android:id="@+id/newgameActivity_RelLayout">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newGameActivity_Timer"
+                    android:textColor="@color/colorWhite"/>
+
                 <TextView android:id="@+id/newGameActivity_PuzzleDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/newGameActivity_Timer"
                     android:textColor="@color/colorWhite"/>
 
                 <com.example.dave.programmerpuzzle.View.PuzzleButton
