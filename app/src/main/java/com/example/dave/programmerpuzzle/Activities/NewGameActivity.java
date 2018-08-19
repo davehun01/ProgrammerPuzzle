@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -117,6 +118,9 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     @BindView(R.id.newGameActivity_Timer)
     TextView timer;
 
+    @BindView(R.id.newGameActivity_Hint)
+    ImageButton hintButton;
+
     private static int CURRENT_LINE = 0;
 
     private List<PuzzleButton> lines = new ArrayList<>();
@@ -161,12 +165,6 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
         setOnTouchListeners();
 
-        puzzleDescription.setText("Test description. Test description. " +
-                "Test description. Test description. Test description." +
-                " Test description. Test description. Test description. " +
-                "Test description. Test description. Test description. " +
-                "Test description. Test description.");
-
         gameLogic.newPuzzle();
 
     }
@@ -206,13 +204,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     }
 
     private void setPlaceHoldersText() {
-        placeholder_1.setText("  1");placeholder_2.setText("  2");placeholder_3.setText("  3");
-        placeholder_4.setText("  4");placeholder_5.setText("  5");placeholder_6.setText("  6");
-        placeholder_7.setText("  7");placeholder_8.setText("  8");placeholder_9.setText("  9");
-        placeholder_10.setText("10");placeholder_11.setText("11");placeholder_12.setText("12");
-        placeholder_13.setText("13");placeholder_14.setText("14");placeholder_15.setText("15");
-        placeholder_16.setText("16");placeholder_17.setText("17");placeholder_18.setText("18");
-        placeholder_19.setText("19");placeholder_20.setText("20");
+        for (int i = 1; i <= 9; i++) placeholders.get(i-1).setText("  " + i);
+        for (int i = 10; i <= 20; i++) placeholders.get(i-1).setText("" + i);
     }
 
     private void removeButtonDependencies() {
@@ -246,20 +239,34 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                        TransitionManager.beginDelayedTransition(viewGroup);
-                        RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                                RelativeLayout.LayoutParams.WRAP_CONTENT);
-                        newPositionParams.addRule(RelativeLayout.END_OF, placeholders.get(CURRENT_LINE).getId());
-                        newPositionParams.addRule(RelativeLayout.ALIGN_BASELINE, placeholders.get(CURRENT_LINE).getId());
-                        view.setLayoutParams(newPositionParams);
-                        CURRENT_LINE++;
-                        usedLines.add(lines.get(j));
-                        //lines.remove(j);
+                        moveButton(view, j);
                     }
                     return true;
                 }
             });
         }
+
+        hintButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+
+                }
+                return true;
+            }
+        });
+    }
+
+    private void moveButton(View view, int j) {
+        TransitionManager.beginDelayedTransition(viewGroup);
+        RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        newPositionParams.addRule(RelativeLayout.END_OF, placeholders.get(CURRENT_LINE).getId());
+        newPositionParams.addRule(RelativeLayout.ALIGN_BASELINE, placeholders.get(CURRENT_LINE).getId());
+        view.setLayoutParams(newPositionParams);
+        CURRENT_LINE++;
+        usedLines.add(lines.get(j));
+        //lines.remove(j);
     }
 
     @Override
