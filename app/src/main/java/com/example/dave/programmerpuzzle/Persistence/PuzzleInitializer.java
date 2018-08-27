@@ -1,6 +1,10 @@
 package com.example.dave.programmerpuzzle.Persistence;
 
+import android.app.Application;
+
+import com.example.dave.programmerpuzzle.Application.MainApplication;
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
+import com.example.dave.programmerpuzzle.R;
 
 public class PuzzleInitializer {
 
@@ -14,7 +18,10 @@ public class PuzzleInitializer {
     public void initPuzzles() {
         if (dataCache.getPuzzleList().size() == 0 || !created) {
             dataCache.deleteAllPuzzles();
-            dataCache.createPuzzle(new Puzzle(1L, "test description", "test code", "C++"));
+            dataCache.createPuzzle(new Puzzle(1L,
+                    MainApplication.getInstance().getString(R.string.puzzle_1_description),
+                    MainApplication.getInstance().getString(R.string.puzzle_1_code),
+                    MainApplication.getInstance().getString(R.string.puzzle_1_language)));
         }
     }
 
