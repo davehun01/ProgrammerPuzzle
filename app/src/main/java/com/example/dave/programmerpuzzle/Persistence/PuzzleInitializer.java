@@ -21,10 +21,14 @@ public class PuzzleInitializer {
         this.dataCache = dataCache;
     }
 
-    public void initPuzzles() throws IOException {
-        if (dataCache.getPuzzleList().size() == 0 || !created) {
-            dataCache.deleteAllPuzzles();
-            createPuzzles();
+    public void initPuzzles() {
+        try {
+            if (dataCache.getPuzzleList().size() == 0 || !created) {
+                dataCache.deleteAllPuzzles();
+                createPuzzles();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -32,22 +36,33 @@ public class PuzzleInitializer {
         AssetManager assetManager = MainApplication.getInstance().getAssets();
         String[] files = assetManager.list("");
         BufferedReader reader = null;
-        StringBuilder code = new StringBuilder();
-        StringBuilder description = new StringBuilder();
+        StringBuilder code;
+        StringBuilder description;
         String language = "";
         for (String currentFile : files) {
-            String[] split = currentFile.split(".");
-            if (split[1].equals("cpp")) language = "C++";
-            if (split[1].equals("java")) language = "Java";
-            if (split[1].equals("py")) language = "Python";
+            System.out.println(currentFile);
+        }
+        for (String currentFile : files) {
+            String[] split = currentFile.split("\\.");
+            if (split.length < 2) continue;
+            if (split[1].equals("cpp")) {
+                language = "C++";
+            } else if (split[1].equals("java")) {
+                language = "Java";
+            } else if (split[1].equals("py")) {
+                language = "Python";
+            } else {
+                continue;
+            }
             reader = new BufferedReader(new InputStreamReader(assetManager.open(currentFile)));
+            code = new StringBuilder();
+            description = new StringBuilder();
             String line;
 
             while (!(line = reader.readLine()).equals("//DESCRIPTION:")) {
                 code.append(line);
                 code.append('\n');
             }
-            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 description.append(line);
                 description.append('\n');
