@@ -16,3 +16,9 @@ static boolean hasArrayTwoCandidates(int A[], int arr_size, int sum) {//1
     }//9,12,15,16,18
     return false;//17
 }//9,12,15,16,18
+//DESCRIPTION:
+Create a Java method that, given an array A[] of n numbers and another number x, determines whether or not there exist two elements in the array whose sum is exactly x.
+Example 1 input: A = {1, 10, 5, 3, 17} sum = 18
+output: true
+Example 2 input: A = {1, 10, 5, 3, 17} sum = 9
+output: false

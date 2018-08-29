@@ -18,3 +18,6 @@ void sort(int arr[], int low, int high) {//15
         sort(arr, low, pi-1); sort(arr, pi+1, high);//18
     }//8,9,14,19,20
 }//8,9,14,19,20
+//DESCRIPTION:
+Create a Java method that implements quicksort. Quicksort is a Divide & Conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot.
+The key process in quicksort is partition(). Target of partitions is, given an array and an element x of array as pivot, put x at its correct position in sorted array and put all smaller elements (smaller than x) before x, and put all greater elements (greater than x) after x.

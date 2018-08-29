@@ -17,3 +17,9 @@ static String removeDups(String str) {//14
 	str = new String(temp);//17
 	return removeDupsSorted(str);//18
 }//8,10,13,19
+//DESCRIPTION:
+Create a Java method that removes duplicates from a string.
+Algorithm:
+1.Sort the elements.
+2.Now in a loop, remove duplicates by comparing the current character with previous character.
+3.Remove extra characters at the end of the resultant string.

@@ -18,6 +18,10 @@ int longSubarrWthSumDivByK(int arr[], int n, int k) {//1
     }//7,11,14,17,18,20
     return max;//19
 }//7,11,14,17,18,20
-
-// C++ implementation to find the longest subarray
-// with sum divisible by k
+//DESCRIPTION:
+Create a C++ function that, given an arr[] containing n integers and a positive integer k, returns the length of the longest subarray with sum of the elements divisible by the given value k.
+Example:
+Input : arr[] = {2, 7, 6, 1, 4, 5}, k = 3
+Output : 4
+The subarray is {7, 6, 1, 4} with sum 18,
+which is divisible by 3.

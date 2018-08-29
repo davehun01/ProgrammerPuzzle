@@ -18,8 +18,13 @@ static int maxSubarrayProduct(int arr[]) {//1
     }//8,11,16,18,20
     return max_so_far;//19
 }//8,11,16,18,20
-// Utility functions to get minimum of two integers
+//DESCRIPTION:
+Create a Java method that, given an array that contains both positive and negative integers, returns the product of the maximum product subarray.
+Examples:
+Input: arr[] = {6, -3, -10, 0, 2}
+Output: 180 (The subarray is {6, -3, -10})
+Input: arr[] = {-1, -3, -10, 0, 60}
+Output: 60 (The subarray is {60})
+Utility functions to get minimum and maximum of two integers:
 static int min (int x, int y) {return x < y? x : y; }
-
-// Utility functions to get maximum of two integers
 static int max (int x, int y) {return x > y? x : y; }

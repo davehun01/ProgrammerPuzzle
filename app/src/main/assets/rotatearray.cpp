@@ -10,6 +10,8 @@ void leftRotate(int arr[], int d, int n) {//8
 		leftRotatebyOne(arr, n);//10
 	}//5,7,11,12
 }//5,7,11,12
-
-// C++ program to rotate an array by 
-// d elements
+//DESCRIPTION:
+Create a C++ function that rotates an array of size n by d elements.
+Example:
+Input: arr = {1, 2, 3, 4, 5, 6, 7} d = 2
+Output: {3, 4, 5, 6, 7, 1, 2}

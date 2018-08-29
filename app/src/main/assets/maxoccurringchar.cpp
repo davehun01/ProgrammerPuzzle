@@ -14,6 +14,8 @@ char getMaxOccuringChar(char* str) {
     }//6,13,14,16
     return result;//15
 }//6,13,14,16
-
-// C++ program to output the maximum occurring character
-// in a string
+//DESCRIPTION:
+Create an efficient C function to return maximum occurring character in the input string.
+Example:
+Input: test
+Output: t
