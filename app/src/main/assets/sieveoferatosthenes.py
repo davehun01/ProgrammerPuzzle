@@ -9,3 +9,10 @@ def SieveOfEratosthenes(n):#1
     for i in range(2, n):#9
         if prime[i]:#10
 			print i#11
+//DESCRIPTION:
+Create a Python function that prints all prime numbers smaller than or equal to n, using Sieve of Eratosthenes.
+Examples:
+Input : n = 10
+Output : 2 3 5 7
+Input : n = 20 
+Output : 2 3 5 7 11 13 17 19

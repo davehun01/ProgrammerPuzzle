@@ -17,6 +17,8 @@ public class ArrayFixer {//1
         return A;//17
     }//10,14,15,16,18,19
 }//10,14,15,16,18,19
-
-// Java program for rearrange an 
-// array such that arr[i] = i.
+//DESCRIPTION:
+Create a Java method that rearranges an array like this: given an array of elements of length N, ranging from 1 to N. All elements may not be present in the array. If element is not present then there will be -1 present in the array. Rearrange the array such that A[i] = i and if i is not present, display -1 at that place.
+Example:
+Input : arr = {-1, -1, 6, 1, 9, 3, 2, -1, 4, -1}
+Output : [-1, 1, 2, 3, 4, -1, 6, -1, -1, 9]

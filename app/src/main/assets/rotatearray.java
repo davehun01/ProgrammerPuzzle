@@ -11,3 +11,8 @@ void leftRotatebyOne(int arr[], int n) {//6
 	}//4,5,11,13
     arr[i] = temp;//12
 }//4,5,11,13
+//DESCRIPTION:
+Create a Java method that rotates an array of size n by d elements.
+Example:
+Input: arr = {1, 2, 3, 4, 5, 6, 7} d = 2
+Output: {3, 4, 5, 6, 7, 1, 2}

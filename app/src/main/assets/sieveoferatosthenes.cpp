@@ -12,6 +12,10 @@ void SieveOfEratosthenes(int n) {//1
 		}//7,8,12,13,14
 	}//7,8,12,13,14
 }//7,8,12,13,14
-
-// C++ program to print all primes smaller than or equal to
-// n using Sieve of Eratosthenes
+//DESCRIPTION:
+Create a C++ function that prints all prime numbers smaller than or equal to n, using Sieve of Eratosthenes.
+Examples:
+Input : n = 10
+Output : 2 3 5 7
+Input : n = 20 
+Output : 2 3 5 7 11 13 17 19

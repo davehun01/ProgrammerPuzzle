@@ -9,3 +9,8 @@ def getMaxOccuringChar(str):#1
             max = count[ord(i)]#9,10
             c = i#9,10
     return c#11
+//DESCRIPTION:
+Create an efficient Python function to return maximum occurring character in the input string.
+Example:
+Input: test
+Output: t

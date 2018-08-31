@@ -14,3 +14,5 @@ def sort(array=[12,4,5,6,7,3,1,15]):#1
         return sort(less)+equal+sort(greater)#14
     else:#15
         return array#16
+//DESCRIPTION:
+Create a recursive Python function that implements quicksort.

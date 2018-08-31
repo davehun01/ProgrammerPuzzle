@@ -16,5 +16,9 @@ void heapSort(int arr[], int n) {//12
         heapify(arr, i, 0);//16
     }//10,11,17,18
 }//10,11,17,18
-
-// C++ program for implementation of Heap Sort
+//DESCRIPTION:
+Create a C++ function that implements heap sort on an array.
+Algorithm:
+1. Build a max heap from the input data.
+2. At this point, the largest item is stored at the root of the heap. Replace it with the last item of the heap followed by reducing the size of heap by 1. Finally, heapify the root of tree.
+3. Repeat above steps while size of heap is greater than 1.

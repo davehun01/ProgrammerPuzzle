@@ -17,9 +17,10 @@ def maxsubarrayproduct(arr):#1
         if (max_so_far < max_ending_here):#-17
             max_so_far  =  max_ending_here#18
     return max_so_far#19
-
-# Python program to find maximum product subarray
- 
-# Returns the product of max product subarray.
-# Assumes that the given array always has a subarray
-# with product more than 1
+//DESCRIPTION:
+Create a Python function that, given an array that contains both positive and negative integers, returns the product of the maximum product subarray.
+Examples:
+Input: arr[] = {6, -3, -10, 0, 2}
+Output: 180 (The subarray is {6, -3, -10})
+Input: arr[] = {-1, -3, -10, 0, 60}
+Output: 60 (The subarray is {60})

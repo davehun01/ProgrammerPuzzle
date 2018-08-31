@@ -4,16 +4,14 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 
+import java.util.ArrayList;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class PuzzleButton extends AppCompatButton {
 
-    @Getter
-    @Setter
-    private int correctLine;
-    @Getter
-    @Setter
+    private ArrayList<Integer> correctLines;
     private int actualLine;
 
     private boolean movable;
@@ -33,4 +31,19 @@ public class PuzzleButton extends AppCompatButton {
         setAllCaps(false);
     }
 
+    public ArrayList<Integer> getCorrectLines() {
+        return correctLines;
+    }
+
+    public void setCorrectLines(ArrayList<Integer> correctLines) {
+        this.correctLines = correctLines;
+    }
+
+    public int getActualLine() {
+        return actualLine;
+    }
+
+    public void setActualLine(int actualLine) {
+        this.actualLine = actualLine;
+    }
 }

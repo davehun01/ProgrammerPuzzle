@@ -14,5 +14,10 @@ void bucketSort(float arr[], int n) {//1
 		}//6,9,14,15,16
 	}//6,9,14,15,16
 }//6,9,14,15,16
-
-// C++ program to sort an array using bucket sort
+//DESCRIPTION:
+Create a C++ function that sorts an array using bucket sort.
+Algorithm:
+1.Create n empty buckets (Or lists).
+2.Do following for every array element arr[i] : insert arr[i] into bucket[n*array[i]]
+3.Sort individual buckets.
+4.Concatenate all sorted buckets.

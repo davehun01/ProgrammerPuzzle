@@ -16,3 +16,9 @@ def heapSort(arr):#12
     for i in range(n-1, 0, -1):#16
         arr[i], arr[0] = arr[0], arr[i]#17
         heapify(arr, i, 0)#18
+//DESCRIPTION:
+Create a Python function that implements heap sort on an array.
+Algorithm:
+1. Build a max heap from the input data.
+2. At this point, the largest item is stored at the root of the heap. Replace it with the last item of the heap followed by reducing the size of heap by 1. Finally, heapify the root of tree.
+3. Repeat above steps while size of heap is greater than 1.

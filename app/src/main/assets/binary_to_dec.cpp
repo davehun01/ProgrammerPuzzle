@@ -11,3 +11,11 @@ int main (int argc, char *argv []) {//-1
     printf ("In decimal: %d\n", decimal);//11
     return 0;//12
 }//10,13
+//DESCRIPTION:
+Create a C function that takes a binary number as input from user and prints the decimal equivalent on the console.
+Example 1:
+Enter binary number: 101
+In decimal: 5
+Example 2:
+Enter binary number: 11111
+In decimal: 31

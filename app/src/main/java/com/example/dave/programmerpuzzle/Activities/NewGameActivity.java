@@ -21,6 +21,7 @@ import com.example.dave.programmerpuzzle.R;
 import com.example.dave.programmerpuzzle.View.PuzzleButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -123,6 +124,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     private static int CURRENT_LINE = 0;
 
+    private static String CURRENT_STARTING_SPACE = "";
+
     private List<PuzzleButton> lines = new ArrayList<>();
 
     private List<Button> placeholders = new ArrayList<>();
@@ -167,6 +170,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
         gameLogic.newPuzzle();
 
+        disableEmptyButtons();
+
     }
 
     private void fillLineList() {
@@ -175,22 +180,6 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         lines.add(line_9);lines.add(line_10);lines.add(line_11);lines.add(line_12);
         lines.add(line_13);lines.add(line_14);lines.add(line_15);lines.add(line_16);
         lines.add(line_17);lines.add(line_18);lines.add(line_19);lines.add(line_20);
-        lines.get(0).setText("public int average(List<Integer> numbers) {");
-        lines.get(1).setText("for (int i = 0; i < numbers.size(); i++) {");
-        lines.get(2).setText("System.out.println('null reference!');");
-        lines.get(3).setText("int average = sum / numbers.size();");
-        lines.get(4).setText("System.out.println('Empty list');");
-        lines.get(5).setText("if (numbers.isEmpty()) {");
-        lines.get(6).setText("sum += numbers.get(i);");
-        lines.get(7).setText("if (numbers == null) {");
-        lines.get(8).setText("return average;");
-        lines.get(9).setText("int sum = 0;");
-        lines.get(10).setText("}");
-        lines.get(11).setText("}");
-        lines.get(12).setText("}");
-        lines.get(13).setText("}");
-        lines.get(14).setText("return -1;");
-        lines.get(15).setText("return -1;");
     }
 
     private void fillPlaceHoldersList() {
@@ -250,7 +239,15 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-
+                    for (int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).getCorrectLines() == null) continue;
+                        if (lines.get(i).getCorrectLines().contains(CURRENT_LINE+1)) {
+                            moveButton(lines.get(i), i);
+                            hintButton.setImageResource(R.mipmap.ic_hint_used_transparent);
+                            hintButton.setEnabled(false);
+                            break;
+                        }
+                    }
                 }
                 return true;
             }
@@ -264,15 +261,85 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         newPositionParams.addRule(RelativeLayout.END_OF, placeholders.get(CURRENT_LINE).getId());
         newPositionParams.addRule(RelativeLayout.ALIGN_BASELINE, placeholders.get(CURRENT_LINE).getId());
         view.setLayoutParams(newPositionParams);
+        if (lines.get(j).getText().toString().contains("}")) CURRENT_STARTING_SPACE = CURRENT_STARTING_SPACE.substring(4);
+        lines.get(j).setText(CURRENT_STARTING_SPACE + lines.get(j).getText());
+        if (lines.get(j).getText().toString().contains("{")) CURRENT_STARTING_SPACE += "    ";
         CURRENT_LINE++;
         usedLines.add(lines.get(j));
         //lines.remove(j);
     }
 
+    private void disableEmptyButtons() {
+        for (int i = 0; i < lines.size(); i++) {
+            if (lines.get(i).getText() == null || lines.get(i).getText().equals("")) {
+                lines.get(i).setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
     @Override
     public void showPuzzle(Puzzle puzzle) {
         puzzleDescription.setText(puzzle.getDescription());
-        //etc
+        String[] puzzleLines = puzzle.getCode().split("\\r?\\n");
+        if (!puzzle.getLanguage().equals("Python")) {
+            for (int i = 0; i < puzzleLines.length; i++) puzzleLines[i] = puzzleLines[i].trim();
+            tokenizeCode(puzzleLines, false);
+        } else {
+            tokenizeCode(puzzleLines, true);
+        }
+        restartState();
+    }
+
+    private void restartState() {
+        CURRENT_LINE = 0;
+        CURRENT_STARTING_SPACE = "";
+        hintButton.setImageResource(R.mipmap.ic_hint_transparent);
+        setButtonsEnability(true);
+    }
+
+    private void tokenizeCode(String[] puzzleLines, boolean languagePython) {
+        Arrays.sort(puzzleLines, new java.util.Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s2.length() - s1.length();
+            }
+        });
+        if (puzzleLines.length < 11) {
+            setLineTexts(puzzleLines, 0, languagePython);
+        } else {
+            String[] firstHalf = new String[10];
+            System.arraycopy(puzzleLines, 0, firstHalf, 0, 10);
+            String[] secondHalf = new String[puzzleLines.length - 10];
+            System.arraycopy(puzzleLines, 10, secondHalf, 0, puzzleLines.length - 10);
+            setLineTexts(firstHalf, 0, languagePython);
+
+            Arrays.sort(secondHalf, new java.util.Comparator<String>() {
+                @Override
+                public int compare(String s1, String s2) {
+                    return s1.length() - s2.length();
+                }
+            });
+
+            setLineTexts(secondHalf, 10, languagePython);
+        }
+    }
+    
+    private void setLineTexts(String[] puzzleLines, int j, boolean languagePython) {
+        for (int i = 0; i < puzzleLines.length; i++) {
+            String[] lineSplit;
+            if (languagePython) {
+                lineSplit = puzzleLines[i].split("#");
+            } else {
+                lineSplit = puzzleLines[i].split("//");
+            }
+            lines.get(i + j).setText(lineSplit[0]);
+            String[] lineNumbers = lineSplit[1].split("\\,");
+            ArrayList<Integer> correctLines = new ArrayList<>();
+            for (String line : lineNumbers) {
+                correctLines.add(Integer.valueOf(line));
+            }
+            lines.get(i + j).setCorrectLines(correctLines);
+        }
     }
 
     @Override
@@ -303,5 +370,6 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         for (PuzzleButton puzzleButton : lines) {
             puzzleButton.setEnabled(enabled);
         }
+        hintButton.setEnabled(enabled);
     }
 }

@@ -15,3 +15,11 @@ public class BinaryToDec {//-1
         System.out.printf("In decimal: %d\n", decimal);//15
 	}//8,14,16,17
 }//8,14,16,17
+//DESCRIPTION:
+Create a Java method that takes a binary number as input from user and prints the decimal equivalent on the console.
+Example 1:
+Enter binary number: 101
+In decimal: 5
+Example 2:
+Enter binary number: 11111
+In decimal: 31

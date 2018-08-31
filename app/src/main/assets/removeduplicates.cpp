@@ -15,6 +15,9 @@ char *removeDups(char *str) {//13
    sort(str, str+n);//15
    return removeDupsSorted(str);//16
 }//7,9,12,17
-
-// C++ prigram to remove duplicates, the order of
-// characters is not maintained in this program
+//DESCRIPTION:
+Create a C function that removes duplicates from a string.
+Algorithm:
+1.Sort the elements.
+2.Now in a loop, remove duplicates by comparing the current character with previous character.
+3.Remove extra characters at the end of the resultant string.

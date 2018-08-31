@@ -16,8 +16,10 @@ void quickSort(int arr[], int low, int high) {//13
         quickSort(arr, low, pi - 1); quickSort(arr, pi + 1, high);//16
     }//8,9,12,17,18
 }//8,9,12,17,18
- 
-//Part of description:
+//DESCRIPTION:
+Create a C++ function that implements quicksort. Quicksort is a Divide & Conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot.
+The key process in quicksort is partition(). Target of partitions is, given an array and an element x of array as pivot, put x at its correct position in sorted array and put all smaller elements (smaller than x) before x, and put all greater elements (greater than x) after x.
+Utility function to swap 2 elements:
 void swap(int* a, int* b) {
     int t = *a;
     *a = *b;

@@ -18,6 +18,10 @@ int minSwaps(int arr[], int n) {//1
     }//6,16,18,20
     return ans;//19
 }//6,16,18,20
-
-// C++ program to find  minimum number of swaps
-// required to sort an array
+//DESCRIPTION:
+Create a C++ function that, given an array of n distinct elements, returns the minimum number of swaps required to sort the array.
+Examples:
+Input : {4, 3, 2, 1}
+Output : 2
+Input : {1, 5, 4, 3, 2}
+Output : 2
