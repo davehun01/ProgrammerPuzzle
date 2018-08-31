@@ -1,15 +1,12 @@
 package com.example.dave.programmerpuzzle.Persistence;
 
-import android.app.Application;
 import android.content.res.AssetManager;
 
 import com.example.dave.programmerpuzzle.Application.MainApplication;
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
-import com.example.dave.programmerpuzzle.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class PuzzleInitializer {
@@ -40,9 +37,6 @@ public class PuzzleInitializer {
         StringBuilder description;
         String language = "";
         for (String currentFile : files) {
-            System.out.println(currentFile);
-        }
-        for (String currentFile : files) {
             String[] split = currentFile.split("\\.");
             if (split.length < 2) continue;
             if (split[1].equals("cpp")) {
@@ -54,6 +48,7 @@ public class PuzzleInitializer {
             } else {
                 continue;
             }
+
             reader = new BufferedReader(new InputStreamReader(assetManager.open(currentFile)));
             code = new StringBuilder();
             description = new StringBuilder();
@@ -63,10 +58,12 @@ public class PuzzleInitializer {
                 code.append(line);
                 code.append('\n');
             }
+
             while ((line = reader.readLine()) != null) {
                 description.append(line);
                 description.append('\n');
             }
+
             reader.close();
             dataCache.createPuzzle(new Puzzle((Long) null, description.toString(), code.toString(), language));
         }

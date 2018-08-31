@@ -1,4 +1,4 @@
-static boolean hasArrayTwoCandidates(int A[], int arr_size, int sum) {//1
+boolean hasTwoCandidates(int A[], int arr_size, int sum) {//1
     int left, right;//2
     Arrays.sort(A);//-3
     left = 0;//4,5
