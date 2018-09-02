@@ -130,13 +130,11 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     private List<Button> placeholders = new ArrayList<>();
 
-    private List<PuzzleButton> usedLines = new ArrayList<>();
+    private List<Integer> usedPlaceholders = new ArrayList<>();
 
     private GameLogic gameLogic;
 
     private MediaPlayer soundPlayer;
-
-    ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +170,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
         disableEmptyButtons();
 
+        moveFixedLines();
     }
 
     private void fillLineList() {
@@ -221,7 +220,12 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     }
 
     private void setOnTouchListeners() {
+        linesOnTouchListeners();
 
+        hintButtonOnTouchListener();
+    }
+
+    private void linesOnTouchListeners() {
         for (int i = 0; i < lines.size(); i++) {
             final int j = i;
             lines.get(i).setOnTouchListener(new View.OnTouchListener() {
@@ -234,7 +238,9 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                 }
             });
         }
+    }
 
+    private void hintButtonOnTouchListener() {
         hintButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -255,6 +261,9 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     }
 
     private void moveButton(View view, int j) {
+        while (usedPlaceholders.contains(CURRENT_LINE)) {
+            CURRENT_LINE++;
+        }
         TransitionManager.beginDelayedTransition(viewGroup);
         RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -264,9 +273,18 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         if (lines.get(j).getText().toString().contains("}")) CURRENT_STARTING_SPACE = CURRENT_STARTING_SPACE.substring(4);
         lines.get(j).setText(CURRENT_STARTING_SPACE + lines.get(j).getText());
         if (lines.get(j).getText().toString().contains("{")) CURRENT_STARTING_SPACE += "    ";
+        usedPlaceholders.add(CURRENT_LINE);
         CURRENT_LINE++;
-        usedLines.add(lines.get(j));
-        //lines.remove(j);
+    }
+
+    private void moveButton(View view, int j, int place) {
+        TransitionManager.beginDelayedTransition(viewGroup);
+        RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        newPositionParams.addRule(RelativeLayout.END_OF, placeholders.get(place).getId());
+        newPositionParams.addRule(RelativeLayout.ALIGN_BASELINE, placeholders.get(place).getId());
+        view.setLayoutParams(newPositionParams);
+        usedPlaceholders.add(place);
     }
 
     private void disableEmptyButtons() {
@@ -277,12 +295,27 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         }
     }
 
+    private void moveFixedLines() {
+        puzzleDescription.post(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < lines.size(); i++) {
+                    if (!(lines.get(i).getText().equals("") || lines.get(i) == null)) {
+                        if (lines.get(i).getCorrectLines().get(0) < 0) {
+                            moveButton(lines.get(i), i, lines.get(i).getCorrectLines().get(0) * (-1) - 1);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     @Override
     public void showPuzzle(Puzzle puzzle) {
         puzzleDescription.setText(puzzle.getDescription());
         String[] puzzleLines = puzzle.getCode().split("\\r?\\n");
         if (!puzzle.getLanguage().equals("Python")) {
-            for (int i = 0; i < puzzleLines.length; i++) puzzleLines[i] = puzzleLines[i].trim();
+            //for (int i = 0; i < puzzleLines.length; i++) puzzleLines[i] = puzzleLines[i].trim();
             tokenizeCode(puzzleLines, false);
         } else {
             tokenizeCode(puzzleLines, true);
@@ -293,6 +326,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     private void restartState() {
         CURRENT_LINE = 0;
         CURRENT_STARTING_SPACE = "";
+        usedPlaceholders = new ArrayList<>();
         hintButton.setImageResource(R.mipmap.ic_hint_transparent);
         setButtonsEnability(true);
     }
@@ -332,7 +366,12 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             } else {
                 lineSplit = puzzleLines[i].split("//");
             }
-            lines.get(i + j).setText(lineSplit[0]);
+            if (lineSplit[1].length() == 2 && Integer.valueOf(lineSplit[1]) < 0 || languagePython) {
+                lines.get(i + j).setText(lineSplit[0]);
+            } else {
+                lines.get(i + j).setText(lineSplit[0].trim());
+            }
+
             String[] lineNumbers = lineSplit[1].split("\\,");
             ArrayList<Integer> correctLines = new ArrayList<>();
             for (String line : lineNumbers) {
