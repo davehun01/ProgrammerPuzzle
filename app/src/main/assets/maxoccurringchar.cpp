@@ -1,4 +1,4 @@
-char getMaxOccuringChar(char* str) {
+char getMaxOccuringChar(char* str) {//1
     int count[256] = {0};//2,3
     int len = strlen(str);//2,3
     for (int i=0; i<len; i++) {//-4

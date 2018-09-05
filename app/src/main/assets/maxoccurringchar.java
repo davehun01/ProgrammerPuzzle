@@ -12,7 +12,7 @@ static char getMaxOccuringChar(String str) {//1
             result = str.charAt(i);//11,12
         }//6,13,14,16
     }//6,13,14,16
-    return result;
+    return result;//15
 }//6,13,14,16
 //DESCRIPTION:
 Create an efficient Java method to return maximum occurring character in the input string.
