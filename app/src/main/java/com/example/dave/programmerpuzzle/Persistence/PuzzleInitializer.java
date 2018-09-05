@@ -30,6 +30,8 @@ public class PuzzleInitializer {
     }
 
     private void createPuzzles() throws IOException {
+        int i = 1;
+
         AssetManager assetManager = MainApplication.getInstance().getAssets();
         String[] files = assetManager.list("");
         BufferedReader reader = null;
@@ -66,8 +68,10 @@ public class PuzzleInitializer {
 
             reader.close();
             dataCache.createPuzzle(new Puzzle((Long) null, description.toString(), code.toString(), language));
+            i++;
         }
-
+        System.out.println(i);
+        System.out.println(i);
     }
 
 

@@ -3,6 +3,7 @@ package com.example.dave.programmerpuzzle.Activities;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
 import android.view.MotionEvent;
@@ -20,8 +21,12 @@ import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 import com.example.dave.programmerpuzzle.R;
 import com.example.dave.programmerpuzzle.View.PuzzleButton;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -132,6 +137,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     private List<Integer> usedPlaceholders = new ArrayList<>();
 
+    private List<PuzzleButton> usedLines = new ArrayList<>();
+
     private GameLogic gameLogic;
 
     private MediaPlayer soundPlayer;
@@ -171,6 +178,13 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         disableEmptyButtons();
 
         moveFixedLines();
+
+        List<Puzzle> puzzleList = MainApplication.getInstance().getDataCache().getPuzzleList();
+
+        for (Puzzle puzzle : puzzleList) {
+            System.out.println(puzzle.getDescription() + " " + puzzle.getLanguage());
+            System.out.println(puzzleList.size());
+        }
     }
 
     private void fillLineList() {
@@ -202,21 +216,22 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             public void run() {
                 int[] coords = new int[2];
                 for (int i = 0; i < lines.size(); i++) {
-                    lines.get(i).getLocationOnScreen(coords);
-                    RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                            RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    newPositionParams.leftMargin = Math.round(lines.get(i).getX());
-                    newPositionParams.topMargin = Math.round(lines.get(i).getY());
-                    lines.get(i).setLayoutParams(newPositionParams);
+                    lines.get(i).setOriginalX(Math.round(lines.get(i).getX()));
+                    lines.get(i).setOriginalY(Math.round(lines.get(i).getY()));
+                    setXY(lines.get(i), coords);
                 }
-                placeholder_1.getLocationOnScreen(coords);
-                RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-                newPositionParams.leftMargin = Math.round(placeholder_1.getX());
-                newPositionParams.topMargin = Math.round(placeholder_1.getY());
-                placeholder_1.setLayoutParams(newPositionParams);
+                setXY(placeholder_1, coords);
             }
         });
+    }
+
+    private void setXY(Button button, int[] coords) {
+        button.getLocationOnScreen(coords);
+        RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        newPositionParams.leftMargin = Math.round(button.getX());
+        newPositionParams.topMargin = Math.round(button.getY());
+        button.setLayoutParams(newPositionParams);
     }
 
     private void setOnTouchListeners() {
@@ -247,7 +262,14 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                     for (int i = 0; i < lines.size(); i++) {
                         if (lines.get(i).getCorrectLines() == null) continue;
-                        if (lines.get(i).getCorrectLines().contains(CURRENT_LINE+1)) {
+                        int nextFreeLine = -1;
+                        for (int j = 0; j < 20; j++) {
+                            if (!usedPlaceholders.contains(j)) {
+                                nextFreeLine = j;
+                                break;
+                            }
+                        }
+                        if (lines.get(i).getCorrectLines().contains(nextFreeLine) && !usedLines.contains(lines.get(i))) {
                             moveButton(lines.get(i), i);
                             hintButton.setImageResource(R.mipmap.ic_hint_used_transparent);
                             hintButton.setEnabled(false);
@@ -261,8 +283,12 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     }
 
     private void moveButton(View view, int j) {
-        while (usedPlaceholders.contains(CURRENT_LINE)) {
-            CURRENT_LINE++;
+        for (int i = 0; i < 20; i++) {
+            if (!usedPlaceholders.contains(i)) {
+                CURRENT_LINE = i;
+                usedPlaceholders.add(i);
+                break;
+            }
         }
         TransitionManager.beginDelayedTransition(viewGroup);
         RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -270,21 +296,88 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         newPositionParams.addRule(RelativeLayout.END_OF, placeholders.get(CURRENT_LINE).getId());
         newPositionParams.addRule(RelativeLayout.ALIGN_BASELINE, placeholders.get(CURRENT_LINE).getId());
         view.setLayoutParams(newPositionParams);
-        if (lines.get(j).getText().toString().contains("}")) CURRENT_STARTING_SPACE = CURRENT_STARTING_SPACE.substring(4);
-        lines.get(j).setText(CURRENT_STARTING_SPACE + lines.get(j).getText());
-        if (lines.get(j).getText().toString().contains("{")) CURRENT_STARTING_SPACE += "    ";
-        usedPlaceholders.add(CURRENT_LINE);
-        CURRENT_LINE++;
+
+        lines.get(j).setActualLine(CURRENT_LINE);
+        usedLines.add(lines.get(j));
+
+        setSpacing();
+
+        refreshListeners();
     }
 
-    private void moveButton(View view, int j, int place) {
+    private void moveFixedButton(View view, int j, int place) {
         TransitionManager.beginDelayedTransition(viewGroup);
         RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         newPositionParams.addRule(RelativeLayout.END_OF, placeholders.get(place).getId());
         newPositionParams.addRule(RelativeLayout.ALIGN_BASELINE, placeholders.get(place).getId());
         view.setLayoutParams(newPositionParams);
+        ((PuzzleButton) view).setActualLine(place);
+        view.setEnabled(false);
         usedPlaceholders.add(place);
+        usedLines.add(lines.get(j));
+    }
+
+    private void moveButtonBack(View view) {
+        TransitionManager.beginDelayedTransition(viewGroup);
+        RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        newPositionParams.leftMargin = ((PuzzleButton) view).getOriginalX();
+        newPositionParams.topMargin = ((PuzzleButton) view).getOriginalY();
+        view.setLayoutParams(newPositionParams);
+
+        ((PuzzleButton) view).setText(((PuzzleButton) view).getText().toString().trim());
+
+        if (!usedPlaceholders.isEmpty()) {
+            usedPlaceholders.remove((Integer) ((PuzzleButton) view).getActualLine());
+        }
+
+        ((PuzzleButton) view).setActualLine(-1);
+
+        usedLines.remove(view);
+
+        setSpacing();
+
+        refreshListeners();
+    }
+
+    private void setSpacing() {
+        Collections.sort(usedLines);
+        for (PuzzleButton puzzleButton : usedLines) {
+            System.out.println(puzzleButton.getActualLine());
+        }
+        CURRENT_STARTING_SPACE = "";
+        for (PuzzleButton puzzleButton : usedLines) {
+            puzzleButton.setText(puzzleButton.getText().toString().trim());
+
+            if (puzzleButton.getText().toString().contains("}") && CURRENT_STARTING_SPACE.length() >= 4) {
+                CURRENT_STARTING_SPACE = CURRENT_STARTING_SPACE.substring(4);
+            }
+
+            puzzleButton.setText(CURRENT_STARTING_SPACE + puzzleButton.getText());
+
+            if (puzzleButton.getText().toString().contains("{")) {
+                CURRENT_STARTING_SPACE += "    ";
+            }
+        }
+    }
+
+    private void refreshListeners() {
+        linesOnTouchListeners();
+
+        if (!usedLines.isEmpty()) {
+            for (PuzzleButton puzzleButton : usedLines) {
+                puzzleButton.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                            moveButtonBack(view);
+                        }
+                        return true;
+                    }
+                });
+            }
+        }
     }
 
     private void disableEmptyButtons() {
@@ -302,7 +395,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                 for (int i = 0; i < lines.size(); i++) {
                     if (!(lines.get(i).getText().equals("") || lines.get(i) == null)) {
                         if (lines.get(i).getCorrectLines().get(0) < 0) {
-                            moveButton(lines.get(i), i, lines.get(i).getCorrectLines().get(0) * (-1) - 1);
+                            moveFixedButton(lines.get(i), i, lines.get(i).getCorrectLines().get(0) * (-1) - 1);
                         }
                     }
                 }
@@ -315,7 +408,6 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         puzzleDescription.setText(puzzle.getDescription());
         String[] puzzleLines = puzzle.getCode().split("\\r?\\n");
         if (!puzzle.getLanguage().equals("Python")) {
-            //for (int i = 0; i < puzzleLines.length; i++) puzzleLines[i] = puzzleLines[i].trim();
             tokenizeCode(puzzleLines, false);
         } else {
             tokenizeCode(puzzleLines, true);
@@ -325,8 +417,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     private void restartState() {
         CURRENT_LINE = 0;
-        CURRENT_STARTING_SPACE = "";
         usedPlaceholders = new ArrayList<>();
+        usedLines = new ArrayList<>();
         hintButton.setImageResource(R.mipmap.ic_hint_transparent);
         setButtonsEnability(true);
     }
@@ -361,18 +453,16 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     private void setLineTexts(String[] puzzleLines, int j, boolean languagePython) {
         for (int i = 0; i < puzzleLines.length; i++) {
             String[] lineSplit;
+
             if (languagePython) {
                 lineSplit = puzzleLines[i].split("#");
-            } else {
-                lineSplit = puzzleLines[i].split("//");
-            }
-            if (lineSplit[1].length() == 2 && Integer.valueOf(lineSplit[1]) < 0 || languagePython) {
                 lines.get(i + j).setText(lineSplit[0]);
             } else {
+                lineSplit = puzzleLines[i].split("//");
                 lines.get(i + j).setText(lineSplit[0].trim());
             }
 
-            String[] lineNumbers = lineSplit[1].split("\\,");
+            String[] lineNumbers = lineSplit[1].split(",");
             ArrayList<Integer> correctLines = new ArrayList<>();
             for (String line : lineNumbers) {
                 correctLines.add(Integer.valueOf(line));
@@ -383,7 +473,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     @Override
     public void timeExpired() {
-
+        gameLogic.newPuzzle();
     }
 
     @Override

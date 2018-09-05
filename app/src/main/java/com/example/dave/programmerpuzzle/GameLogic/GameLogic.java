@@ -32,17 +32,19 @@ public class GameLogic implements GameTimerInterface {
     }
 
     public void newPuzzle() {
-        Random random = new Random();
-        currentPuzzle = puzzleList.remove(random.nextInt(puzzleList.size()));
+        //Random random = new Random();
+        //currentPuzzle = puzzleList.remove(random.nextInt(puzzleList.size()));
+        currentPuzzle = puzzleList.remove(0);
         gameLogicInterface.showPuzzle(currentPuzzle);
 
-        startTimer(300 * 1000);
+        startTimer(5 * 1000);
         gameLogicInterface.setButtonsEnability(true);
     }
 
     @Override
     public void tick(long timeLeft) {
         gameLogicInterface.showTimer(timeLeft);
+        if (timeLeft < 1000) gameLogicInterface.timeExpired();
     }
 
     @Override

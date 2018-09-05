@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
-public class PuzzleButton extends AppCompatButton {
+public class PuzzleButton extends AppCompatButton implements Comparable<PuzzleButton> {
 
     private ArrayList<Integer> correctLines;
     private int actualLine;
 
-    private boolean movable;
+    private int originalX;
+    private int originalY;
 
     public PuzzleButton(Context context) {
         super(context);
@@ -45,5 +46,25 @@ public class PuzzleButton extends AppCompatButton {
 
     public void setActualLine(int actualLine) {
         this.actualLine = actualLine;
+    }
+
+    public int getOriginalX() {
+        return originalX;
+    }
+
+    public void setOriginalX(int originalX) {
+        this.originalX = originalX;
+    }
+
+    public int getOriginalY() {
+        return originalY;
+    }
+
+    public void setOriginalY(int originalY) {
+        this.originalY = originalY;
+    }
+
+    public int compareTo(PuzzleButton other) {
+        return(this.actualLine - other.actualLine);
     }
 }
