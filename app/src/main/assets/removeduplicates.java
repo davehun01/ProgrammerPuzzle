@@ -6,7 +6,7 @@ static String removeDupsSorted(String str) {//-1
             arr[res_ind] = arr[ip_ind];//6
             res_ind++;//7
         }//8,10,13,19
-        ip_ind++;//9   
+        ip_ind++;//9
     }//8,10,13,19
     str = new String(arr);//11
     return str.substring(0,res_ind);//12

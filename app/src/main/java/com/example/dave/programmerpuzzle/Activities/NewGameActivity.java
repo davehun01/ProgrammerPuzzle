@@ -1,11 +1,13 @@
 package com.example.dave.programmerpuzzle.Activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +23,6 @@ import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 import com.example.dave.programmerpuzzle.R;
 import com.example.dave.programmerpuzzle.View.PuzzleButton;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -127,6 +126,13 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     @BindView(R.id.newGameActivity_Hint)
     ImageButton hintButton;
 
+    @BindView(R.id.newGameActivity_Skip)
+    ImageButton skipButton;
+
+    private int puzzleCount = 0;
+
+    private String language = "";
+
     private static int CURRENT_LINE = 0;
 
     private static String CURRENT_STARTING_SPACE = "";
@@ -146,22 +152,13 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_game);
 
-        ButterKnife.bind(this);
+        activityDesign();
 
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
+        loadSettings();
 
         gameLogic = new GameLogic(this,
-                MainApplication.getInstance().getDataCache().getPuzzleList());
-
-        /*
-        soundplayer:
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
-        if (sharedPreferences.getBoolean("key_sound",false) == true) {
-            soundPlayer = new MediaPlayer();
-        }
-         */
+                MainApplication.getInstance().getDataCache().getPuzzleList(language));
 
         fillLineList();
 
@@ -174,25 +171,35 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         setOnTouchListeners();
 
         gameLogic.newPuzzle();
+    }
 
-        disableEmptyButtons();
+    private void activityDesign() {
+        setContentView(R.layout.activity_new_game);
 
-        moveFixedLines();
+        ButterKnife.bind(this);
 
-        List<Puzzle> puzzleList = MainApplication.getInstance().getDataCache().getPuzzleList();
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
 
-        for (Puzzle puzzle : puzzleList) {
-            System.out.println(puzzle.getDescription() + " " + puzzle.getLanguage());
-            System.out.println(puzzleList.size());
+        timer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30f);
+    }
+
+    private void loadSettings() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        language = sharedPreferences.getString("key_language", "C++");
+
+        /*
+        if (sharedPreferences.getBoolean("key_sound",false) == true) {
+            soundPlayer = new MediaPlayer();
         }
+         */
+
     }
 
     private void fillLineList() {
-        lines.add(line_1);lines.add(line_2);lines.add(line_3);lines.add(line_4);
-        lines.add(line_5);lines.add(line_6);lines.add(line_7);lines.add(line_8);
-        lines.add(line_9);lines.add(line_10);lines.add(line_11);lines.add(line_12);
-        lines.add(line_13);lines.add(line_14);lines.add(line_15);lines.add(line_16);
-        lines.add(line_17);lines.add(line_18);lines.add(line_19);lines.add(line_20);
+        lines.add(line_1);lines.add(line_2);lines.add(line_3);lines.add(line_4);lines.add(line_5);
+        lines.add(line_6);lines.add(line_7);lines.add(line_8);lines.add(line_9);lines.add(line_10);
+        lines.add(line_11);lines.add(line_12);lines.add(line_13);lines.add(line_14);lines.add(line_15);
+        lines.add(line_16);lines.add(line_17);lines.add(line_18);lines.add(line_19);lines.add(line_20);
     }
 
     private void fillPlaceHoldersList() {
@@ -214,19 +221,17 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         puzzleDescription.post(new Runnable() {
             @Override
             public void run() {
-                int[] coords = new int[2];
                 for (int i = 0; i < lines.size(); i++) {
                     lines.get(i).setOriginalX(Math.round(lines.get(i).getX()));
                     lines.get(i).setOriginalY(Math.round(lines.get(i).getY()));
-                    setXY(lines.get(i), coords);
+                    setXY(lines.get(i));
                 }
-                setXY(placeholder_1, coords);
+                setXY(placeholder_1);
             }
         });
     }
 
-    private void setXY(Button button, int[] coords) {
-        button.getLocationOnScreen(coords);
+    private void setXY(Button button) {
         RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         newPositionParams.leftMargin = Math.round(button.getX());
@@ -238,6 +243,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         linesOnTouchListeners();
 
         hintButtonOnTouchListener();
+
+        skipButtonOnTouchListener();
     }
 
     private void linesOnTouchListeners() {
@@ -269,7 +276,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                                 break;
                             }
                         }
-                        if (lines.get(i).getCorrectLines().contains(nextFreeLine) && !usedLines.contains(lines.get(i))) {
+                        if (lines.get(i).getCorrectLines().contains(nextFreeLine + 1) && !usedLines.contains(lines.get(i))) {
                             moveButton(lines.get(i), i);
                             hintButton.setImageResource(R.mipmap.ic_hint_used_transparent);
                             hintButton.setEnabled(false);
@@ -277,6 +284,16 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                         }
                     }
                 }
+                return true;
+            }
+        });
+    }
+
+    private void skipButtonOnTouchListener() {
+        skipButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) gameLogic.newPuzzle();
                 return true;
             }
         });
@@ -343,9 +360,6 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     private void setSpacing() {
         Collections.sort(usedLines);
-        for (PuzzleButton puzzleButton : usedLines) {
-            System.out.println(puzzleButton.getActualLine());
-        }
         CURRENT_STARTING_SPACE = "";
         for (PuzzleButton puzzleButton : usedLines) {
             puzzleButton.setText(puzzleButton.getText().toString().trim());
@@ -365,18 +379,16 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     private void refreshListeners() {
         linesOnTouchListeners();
 
-        if (!usedLines.isEmpty()) {
-            for (PuzzleButton puzzleButton : usedLines) {
-                puzzleButton.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                            moveButtonBack(view);
-                        }
-                        return true;
+        for (PuzzleButton puzzleButton : usedLines) {
+            puzzleButton.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                        moveButtonBack(view);
                     }
-                });
-            }
+                    return true;
+                }
+            });
         }
     }
 
@@ -405,14 +417,81 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     @Override
     public void showPuzzle(Puzzle puzzle) {
+
+        //if (puzzleCount == 5) gameEnd();
+
+        int heightDiff = puzzleDescription.getHeight();
+        final int[] widthDifferences = new int[10];
+        for (int i = 0; i < 10; i++) {
+            widthDifferences[i] = lines.get(i).getWidth();
+        }
+
         puzzleDescription.setText(puzzle.getDescription());
+
+        if (puzzleCount != 0) {
+            for (PuzzleButton puzzleButton : lines) puzzleButton.setText("");
+        }
+
         String[] puzzleLines = puzzle.getCode().split("\\r?\\n");
         if (!puzzle.getLanguage().equals("Python")) {
             tokenizeCode(puzzleLines, false);
         } else {
             tokenizeCode(puzzleLines, true);
         }
-        restartState();
+
+        if (puzzleCount != 0) {
+            resetButtons(heightDiff, widthDifferences);
+            setOnTouchListeners();
+            gameLogic.end();
+            restartState();
+        }
+
+        if (puzzleCount == 0) {
+            disableEmptyButtons();
+
+            moveFixedLines();
+        }
+
+        puzzleCount++;
+    }
+
+    private void resetButtons(final int heightDiff, final int[] widthDifferences) {
+
+        for (int i = 0; i < lines.size(); i++) {
+            final int j = i;
+            lines.get(j).post(new Runnable() {
+                @Override
+                public void run() {
+                    int heightDifference = heightDiff - puzzleDescription.getHeight();
+                    lines.get(j).setOriginalY(lines.get(j).getOriginalY() - heightDifference);
+
+                    if (j < 10) {
+                        widthDifferences[j] -= lines.get(j).getWidth();
+                    } else {
+                        lines.get(j).setOriginalX(lines.get(j).getOriginalX() - widthDifferences[j - 10]);
+                    }
+
+                    moveButtonBack(lines.get(j));
+                    lines.get(j).setVisibility(View.VISIBLE);
+                    disableEmptyButtons();
+                    moveFixedLines();
+                }
+            });
+        }
+
+        placeholder_1.post(new Runnable() {
+            @Override
+            public void run() {
+                int heightDifference = heightDiff - puzzleDescription.getHeight();
+                RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+                newPositionParams.leftMargin = Math.round(placeholder_1.getX());
+                newPositionParams.topMargin = Math.round(placeholder_1.getY() - heightDifference);
+                placeholder_1.setLayoutParams(newPositionParams);
+            }
+        });
+
+
     }
 
     private void restartState() {
@@ -478,7 +557,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     @Override
     public void gameEnd() {
-
+        Intent gameEndIntent = new Intent(NewGameActivity.this, GameEndActivity.class);
+        startActivity(gameEndIntent);
     }
 
     @Override

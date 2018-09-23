@@ -42,13 +42,7 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
-        // Put this in a different thread or use AsyncSession in greenDAO.
-        // For Demo purpose, this query is made on main thread but it should in a different thread.
-        Puzzle puzzle = ((MainApplication)getApplication()).getDaoSession().getPuzzleDao().load(1L);
-        //((MainApplication) getApplication()).getDaoSession().getPuzzleDao().loadAll();
-
         activityDesign();
-
     }
 
     private void activityDesign() {

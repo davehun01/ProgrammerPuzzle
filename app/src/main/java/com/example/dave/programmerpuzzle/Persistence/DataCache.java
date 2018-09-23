@@ -2,6 +2,7 @@ package com.example.dave.programmerpuzzle.Persistence;
 
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataCache {
@@ -17,6 +18,16 @@ public class DataCache {
 
     public List<Puzzle> getPuzzleList() {
         return puzzleList;
+    }
+
+    public List<Puzzle> getPuzzleList(String language) {
+        List<Puzzle> puzzles = new ArrayList<>();
+        for (Puzzle puzzle : puzzleList) {
+            if (puzzle.getLanguage().equals(language)) {
+                puzzles.add(puzzle);
+            }
+        }
+        return puzzles;
     }
 
     public void createPuzzle(Puzzle puzzle) {
@@ -43,7 +54,7 @@ public class DataCache {
     public void deleteAllPuzzles() {
         daoManager.deleteAllPuzzles();
         for (int i = 0; i < puzzleList.size(); i++) {
-            puzzleList.remove(i);
+            puzzleList.remove(0);
         }
     }
 
