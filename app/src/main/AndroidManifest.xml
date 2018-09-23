@@ -15,6 +15,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -29,7 +30,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.SettingsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.GameEndActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-w
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,6 +29,13 @@ w
                     android:layout_height="wrap_content"
                     android:id="@+id/newGameActivity_Timer"
                     android:textColor="@color/colorWhite"/>
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/newGameActivity_Skip"
+                    android:src="@mipmap/ic_skip_transparent"
+                    android:layout_alignParentRight="true"/>
 
                 <TextView android:id="@+id/newGameActivity_PuzzleDescription"
                     android:layout_width="wrap_content"
@@ -132,7 +139,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_PuzzleDescription"
-                    android:layout_toRightOf="@id/newGameActivity_Line_1"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_1"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -142,7 +149,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_Line_11"
-                    android:layout_toRightOf="@id/newGameActivity_Line_2"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_2"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -152,7 +159,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_Line_12"
-                    android:layout_toRightOf="@id/newGameActivity_Line_3"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_3"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -162,7 +169,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_Line_13"
-                    android:layout_toRightOf="@id/newGameActivity_Line_4"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_4"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -172,7 +179,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_Line_14"
-                    android:layout_toRightOf="@id/newGameActivity_Line_5"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_5"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -182,7 +189,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_Line_15"
-                    android:layout_toRightOf="@id/newGameActivity_Line_6"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_6"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -192,7 +199,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_Line_16"
-                    android:layout_toRightOf="@id/newGameActivity_Line_7"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_7"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -202,7 +209,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_Line_17"
-                    android:layout_toRightOf="@id/newGameActivity_Line_8"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_8"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -212,7 +219,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_Line_18"
-                    android:layout_toRightOf="@id/newGameActivity_Line_9"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_9"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -222,7 +229,7 @@ w
                     android:layout_height="wrap_content"
                     android:theme="@style/Widget.AppCompat.Button"
                     android:layout_below="@id/newGameActivity_Line_19"
-                    android:layout_toRightOf="@id/newGameActivity_Line_10"
+                    android:layout_toEndOf="@+id/newGameActivity_Line_10"
                     android:minWidth="0dp"
                     android:minHeight="0dp"/>
 
@@ -387,8 +394,6 @@ w
                     android:minHeight="0dp"/>
 
         </RelativeLayout>
-
-
 
     </ScrollView>
 

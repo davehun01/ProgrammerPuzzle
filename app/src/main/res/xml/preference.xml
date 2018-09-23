@@ -27,8 +27,8 @@
         </SwitchPreference>
 
         <SwitchPreference
-            android:title="ELFELEJTETTEM"
-            android:key="key_x"
+            android:title="Vibration"
+            android:key="key_vibration"
             android:editable="true">
         </SwitchPreference>
 
