@@ -1,15 +1,12 @@
 <resources>
-    <string name="app_name">ProgrammerPuzzle</string>
+    <string name="app_name">Programmer Puzzle</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
 
-    <string name="puzzle_1_description">Test description. Test description. Test description. Test description.
-    Test description. Test description. Test description. Test description. Test description.
-    Test description. Test description. Test description. Test description. Test description. </string>
-    <string name="puzzle_1_code">Test code.</string>
-    <string name="puzzle_1_language">C++</string>
+    <string name="skip_puzzle_confirm">Are you sure you want to skip this puzzle and move on to the next one?</string>
+    <string name="back_button_confirm">Are you sure you want to quit to main menu?</string>
 
 </resources>
