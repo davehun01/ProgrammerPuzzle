@@ -1,10 +1,12 @@
 package com.example.dave.programmerpuzzle.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
 import android.util.TypedValue;
@@ -293,7 +295,32 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         skipButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) gameLogic.newPuzzle();
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NewGameActivity.this);
+
+                    builder.setMessage(R.string.skip_puzzle_confirm);
+
+                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            gameLogic.newPuzzle();
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+                }
                 return true;
             }
         });
@@ -491,7 +518,6 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             }
         });
 
-
     }
 
     private void restartState() {
@@ -580,5 +606,32 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             puzzleButton.setEnabled(enabled);
         }
         hintButton.setEnabled(enabled);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewGameActivity.this);
+
+        builder.setMessage(R.string.back_button_confirm);
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

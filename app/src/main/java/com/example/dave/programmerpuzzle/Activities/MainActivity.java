@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
 
-    private final String MAIN_TITLE = "Programmer Puzzle";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void activityDesign() {
-        applicationTitle.setText(MAIN_TITLE);
+        applicationTitle.setText(R.string.app_name);
 
         setSupportActionBar(toolbar);
 
