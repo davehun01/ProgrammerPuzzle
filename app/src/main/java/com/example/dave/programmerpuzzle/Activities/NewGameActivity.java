@@ -35,101 +35,56 @@ import butterknife.ButterKnife;
 
 public class NewGameActivity extends AppCompatActivity implements GameLogicInterface {
 
-    @BindView(R.id.newGameActivity_PuzzleDescription)
-    TextView puzzleDescription;
-    @BindView(R.id.newGameActivity_Line_1)
-    PuzzleButton line_1;
-    @BindView(R.id.newGameActivity_Line_2)
-    PuzzleButton line_2;
-    @BindView(R.id.newGameActivity_Line_3)
-    PuzzleButton line_3;
-    @BindView(R.id.newGameActivity_Line_4)
-    PuzzleButton line_4;
-    @BindView(R.id.newGameActivity_Line_5)
-    PuzzleButton line_5;
-    @BindView(R.id.newGameActivity_Line_6)
-    PuzzleButton line_6;
-    @BindView(R.id.newGameActivity_Line_7)
-    PuzzleButton line_7;
-    @BindView(R.id.newGameActivity_Line_8)
-    PuzzleButton line_8;
-    @BindView(R.id.newGameActivity_Line_9)
-    PuzzleButton line_9;
-    @BindView(R.id.newGameActivity_Line_10)
-    PuzzleButton line_10;
-    @BindView(R.id.newGameActivity_Line_11)
-    PuzzleButton line_11;
-    @BindView(R.id.newGameActivity_Line_12)
-    PuzzleButton line_12;
-    @BindView(R.id.newGameActivity_Line_13)
-    PuzzleButton line_13;
-    @BindView(R.id.newGameActivity_Line_14)
-    PuzzleButton line_14;
-    @BindView(R.id.newGameActivity_Line_15)
-    PuzzleButton line_15;
-    @BindView(R.id.newGameActivity_Line_16)
-    PuzzleButton line_16;
-    @BindView(R.id.newGameActivity_Line_17)
-    PuzzleButton line_17;
-    @BindView(R.id.newGameActivity_Line_18)
-    PuzzleButton line_18;
-    @BindView(R.id.newGameActivity_Line_19)
-    PuzzleButton line_19;
-    @BindView(R.id.newGameActivity_Line_20)
-    PuzzleButton line_20;
+    @BindView(R.id.newGameActivity_PuzzleDescription) TextView puzzleDescription;
+    @BindView(R.id.newGameActivity_Line_1) PuzzleButton line_1;
+    @BindView(R.id.newGameActivity_Line_2) PuzzleButton line_2;
+    @BindView(R.id.newGameActivity_Line_3) PuzzleButton line_3;
+    @BindView(R.id.newGameActivity_Line_4) PuzzleButton line_4;
+    @BindView(R.id.newGameActivity_Line_5) PuzzleButton line_5;
+    @BindView(R.id.newGameActivity_Line_6) PuzzleButton line_6;
+    @BindView(R.id.newGameActivity_Line_7) PuzzleButton line_7;
+    @BindView(R.id.newGameActivity_Line_8) PuzzleButton line_8;
+    @BindView(R.id.newGameActivity_Line_9) PuzzleButton line_9;
+    @BindView(R.id.newGameActivity_Line_10) PuzzleButton line_10;
+    @BindView(R.id.newGameActivity_Line_11) PuzzleButton line_11;
+    @BindView(R.id.newGameActivity_Line_12) PuzzleButton line_12;
+    @BindView(R.id.newGameActivity_Line_13) PuzzleButton line_13;
+    @BindView(R.id.newGameActivity_Line_14) PuzzleButton line_14;
+    @BindView(R.id.newGameActivity_Line_15) PuzzleButton line_15;
+    @BindView(R.id.newGameActivity_Line_16) PuzzleButton line_16;
+    @BindView(R.id.newGameActivity_Line_17) PuzzleButton line_17;
+    @BindView(R.id.newGameActivity_Line_18) PuzzleButton line_18;
+    @BindView(R.id.newGameActivity_Line_19) PuzzleButton line_19;
+    @BindView(R.id.newGameActivity_Line_20) PuzzleButton line_20;
 
-    @BindView(R.id.newGameActivity_Placeholder_1)
-    Button placeholder_1;
-    @BindView(R.id.newGameActivity_Placeholder_2)
-    Button placeholder_2;
-    @BindView(R.id.newGameActivity_Placeholder_3)
-    Button placeholder_3;
-    @BindView(R.id.newGameActivity_Placeholder_4)
-    Button placeholder_4;
-    @BindView(R.id.newGameActivity_Placeholder_5)
-    Button placeholder_5;
-    @BindView(R.id.newGameActivity_Placeholder_6)
-    Button placeholder_6;
-    @BindView(R.id.newGameActivity_Placeholder_7)
-    Button placeholder_7;
-    @BindView(R.id.newGameActivity_Placeholder_8)
-    Button placeholder_8;
-    @BindView(R.id.newGameActivity_Placeholder_9)
-    Button placeholder_9;
-    @BindView(R.id.newGameActivity_Placeholder_10)
-    Button placeholder_10;
-    @BindView(R.id.newGameActivity_Placeholder_11)
-    Button placeholder_11;
-    @BindView(R.id.newGameActivity_Placeholder_12)
-    Button placeholder_12;
-    @BindView(R.id.newGameActivity_Placeholder_13)
-    Button placeholder_13;
-    @BindView(R.id.newGameActivity_Placeholder_14)
-    Button placeholder_14;
-    @BindView(R.id.newGameActivity_Placeholder_15)
-    Button placeholder_15;
-    @BindView(R.id.newGameActivity_Placeholder_16)
-    Button placeholder_16;
-    @BindView(R.id.newGameActivity_Placeholder_17)
-    Button placeholder_17;
-    @BindView(R.id.newGameActivity_Placeholder_18)
-    Button placeholder_18;
-    @BindView(R.id.newGameActivity_Placeholder_19)
-    Button placeholder_19;
-    @BindView(R.id.newGameActivity_Placeholder_20)
-    Button placeholder_20;
+    @BindView(R.id.newGameActivity_Placeholder_1) Button placeholder_1;
+    @BindView(R.id.newGameActivity_Placeholder_2) Button placeholder_2;
+    @BindView(R.id.newGameActivity_Placeholder_3) Button placeholder_3;
+    @BindView(R.id.newGameActivity_Placeholder_4) Button placeholder_4;
+    @BindView(R.id.newGameActivity_Placeholder_5) Button placeholder_5;
+    @BindView(R.id.newGameActivity_Placeholder_6) Button placeholder_6;
+    @BindView(R.id.newGameActivity_Placeholder_7) Button placeholder_7;
+    @BindView(R.id.newGameActivity_Placeholder_8) Button placeholder_8;
+    @BindView(R.id.newGameActivity_Placeholder_9) Button placeholder_9;
+    @BindView(R.id.newGameActivity_Placeholder_10) Button placeholder_10;
+    @BindView(R.id.newGameActivity_Placeholder_11) Button placeholder_11;
+    @BindView(R.id.newGameActivity_Placeholder_12) Button placeholder_12;
+    @BindView(R.id.newGameActivity_Placeholder_13) Button placeholder_13;
+    @BindView(R.id.newGameActivity_Placeholder_14) Button placeholder_14;
+    @BindView(R.id.newGameActivity_Placeholder_15) Button placeholder_15;
+    @BindView(R.id.newGameActivity_Placeholder_16) Button placeholder_16;
+    @BindView(R.id.newGameActivity_Placeholder_17) Button placeholder_17;
+    @BindView(R.id.newGameActivity_Placeholder_18) Button placeholder_18;
+    @BindView(R.id.newGameActivity_Placeholder_19) Button placeholder_19;
+    @BindView(R.id.newGameActivity_Placeholder_20) Button placeholder_20;
 
-    @BindView(R.id.newgameActivity_RelLayout)
-    ViewGroup viewGroup;
+    @BindView(R.id.newgameActivity_RelLayout) ViewGroup viewGroup;
 
-    @BindView(R.id.newGameActivity_Timer)
-    TextView timer;
+    @BindView(R.id.newGameActivity_Timer) TextView timer;
 
-    @BindView(R.id.newGameActivity_Hint)
-    ImageButton hintButton;
+    @BindView(R.id.newGameActivity_Hint) ImageButton hintButton;
 
-    @BindView(R.id.newGameActivity_Skip)
-    ImageButton skipButton;
+    @BindView(R.id.newGameActivity_Skip) ImageButton skipButton;
 
     private int puzzleCount = 0;
 
@@ -138,6 +93,10 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     private static int CURRENT_LINE = 0;
 
     private static String CURRENT_STARTING_SPACE = "";
+
+    private long timeLeftSec;
+
+    private static int PUZZLES_IN_ONE_GAME = 5;
 
     private List<PuzzleButton> lines = new ArrayList<>();
 
@@ -278,7 +237,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                                 break;
                             }
                         }
-                        if (lines.get(i).getCorrectLines().contains(nextFreeLine + 1) && !usedLines.contains(lines.get(i))) {
+                        if (lines.get(i).getCorrectLines().contains(nextFreeLine) && !usedLines.contains(lines.get(i))) {
                             moveButton(lines.get(i), i);
                             hintButton.setImageResource(R.mipmap.ic_hint_used_transparent);
                             hintButton.setEnabled(false);
@@ -344,9 +303,11 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         lines.get(j).setActualLine(CURRENT_LINE);
         usedLines.add(lines.get(j));
 
-        setSpacing();
+        if (!language.equals("Python")) setSpacing();
 
         refreshListeners();
+
+        checkPuzzleDone();
     }
 
     private void moveFixedButton(View view, int j, int place) {
@@ -370,7 +331,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         newPositionParams.topMargin = ((PuzzleButton) view).getOriginalY();
         view.setLayoutParams(newPositionParams);
 
-        ((PuzzleButton) view).setText(((PuzzleButton) view).getText().toString().trim());
+        if (!language.equals("Python")) ((PuzzleButton) view).setText(((PuzzleButton) view).getText().toString().trim());
 
         if (!usedPlaceholders.isEmpty()) {
             usedPlaceholders.remove((Integer) ((PuzzleButton) view).getActualLine());
@@ -380,7 +341,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
         usedLines.remove(view);
 
-        setSpacing();
+        if (!language.equals("Python")) setSpacing();
 
         refreshListeners();
     }
@@ -434,7 +395,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                 for (int i = 0; i < lines.size(); i++) {
                     if (!(lines.get(i).getText().equals("") || lines.get(i) == null)) {
                         if (lines.get(i).getCorrectLines().get(0) < 0) {
-                            moveFixedButton(lines.get(i), i, lines.get(i).getCorrectLines().get(0) * (-1) - 1);
+                            moveFixedButton(lines.get(i), i, lines.get(i).getCorrectLines().get(0) * (-1) - 2);
                         }
                     }
                 }
@@ -444,9 +405,10 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     @Override
     public void showPuzzle(Puzzle puzzle) {
-
-        //if (puzzleCount == 5) gameEnd();
-
+        if (puzzleCount == PUZZLES_IN_ONE_GAME) {
+            gameEnd();
+            return;
+        }
         int heightDiff = puzzleDescription.getHeight();
         final int[] widthDifferences = new int[10];
         for (int i = 0; i < 10; i++) {
@@ -570,26 +532,84 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             String[] lineNumbers = lineSplit[1].split(",");
             ArrayList<Integer> correctLines = new ArrayList<>();
             for (String line : lineNumbers) {
-                correctLines.add(Integer.valueOf(line));
+                correctLines.add(Integer.valueOf(line) - 1);
             }
             lines.get(i + j).setCorrectLines(correctLines);
         }
     }
 
+    private void checkPuzzleDone() {
+        boolean puzzleDone = true;
+        for (PuzzleButton puzzleButton : lines) {
+            if (puzzleButton.getCorrectLines() != null && !puzzleButton.getText().toString().equals("")) {
+                if (!puzzleButton.getCorrectLines().contains(puzzleButton.getActualLine())) {
+                    System.out.println(puzzleButton.getCorrectLines());
+                    System.out.println(puzzleButton.getActualLine());
+                    puzzleDone = false;
+                }
+            }
+        }
+        if (puzzleDone) showPuzzleDoneDialog();
+    }
+
+    private void showPuzzleDoneDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Well done!")
+                .setCancelable(false)
+                .setPositiveButton("Go next!", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        gameLogic.addScore(timeLeftSec);
+                        gameLogic.newPuzzle();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     @Override
     public void timeExpired() {
-        gameLogic.newPuzzle();
+        showTimeExpiredDialog();
+    }
+
+    private void showTimeExpiredDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Time expired.")
+                .setCancelable(false)
+                .setPositiveButton("Go next!", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        gameLogic.newPuzzle();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
     public void gameEnd() {
-        Intent gameEndIntent = new Intent(NewGameActivity.this, GameEndActivity.class);
-        startActivity(gameEndIntent);
+        gameLogic.end();
+        showGameEndDialog();
+    }
+
+    private void showGameEndDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Game is finished. Your score is " + gameLogic.getScore() + ".")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //TODO:
+                        //saveHighScore();
+                        Intent mainMenuIntent = new Intent(NewGameActivity.this, MainActivity.class);
+                        startActivity(mainMenuIntent);
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
     public void showTimer(long timeLeft) {
         long timeLeftSec = timeLeft / 1000;
+        this.timeLeftSec = timeLeftSec;
         long minutes = timeLeftSec / 60;
         long seconds = timeLeftSec - minutes * 60;
         if (seconds >= 10) {

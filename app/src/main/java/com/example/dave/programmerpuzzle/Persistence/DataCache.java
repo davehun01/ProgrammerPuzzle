@@ -53,9 +53,7 @@ public class DataCache {
 
     public void deleteAllPuzzles() {
         daoManager.deleteAllPuzzles();
-        for (int i = 0; i < puzzleList.size(); i++) {
-            puzzleList.remove(0);
-        }
+        puzzleList = new ArrayList<>();
     }
 
 
