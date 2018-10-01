@@ -69,7 +69,6 @@ public class PuzzleInitializer {
         }
     }
 
-
     public void isCreated(boolean created) {
         this.created = created;
     }
