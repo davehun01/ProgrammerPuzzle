@@ -277,8 +277,9 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                     });
 
                     AlertDialog alert = builder.create();
-                    alert.show();
-
+                    if(!(NewGameActivity.this).isFinishing()) {
+                        alert.show();
+                    }
                 }
                 return true;
             }
@@ -432,8 +433,9 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             resetButtons(heightDiff, widthDifferences);
             setOnTouchListeners();
             gameLogic.end();
-            restartState();
         }
+
+        restartState();
 
         if (puzzleCount == 0) {
             disableEmptyButtons();
@@ -445,6 +447,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     }
 
     private void resetButtons(final int heightDiff, final int[] widthDifferences) {
+        final boolean[] movedFixedLines = {false};
 
         for (int i = 0; i < lines.size(); i++) {
             final int j = i;
@@ -462,8 +465,11 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
                     moveButtonBack(lines.get(j));
                     lines.get(j).setVisibility(View.VISIBLE);
-                    disableEmptyButtons();
-                    moveFixedLines();
+                    if (!movedFixedLines[0]) {
+                        disableEmptyButtons();
+                        moveFixedLines();
+                        movedFixedLines[0] = true;
+                    }
                 }
             });
         }
@@ -484,8 +490,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     private void restartState() {
         CURRENT_LINE = 0;
-        usedPlaceholders = new ArrayList<>();
-        usedLines = new ArrayList<>();
+        usedPlaceholders.clear();
+        usedLines.clear();
         hintButton.setImageResource(R.mipmap.ic_hint_transparent);
         setButtonsEnability(true);
     }
@@ -543,13 +549,14 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         for (PuzzleButton puzzleButton : lines) {
             if (puzzleButton.getCorrectLines() != null && !puzzleButton.getText().toString().equals("")) {
                 if (!puzzleButton.getCorrectLines().contains(puzzleButton.getActualLine())) {
-                    System.out.println(puzzleButton.getCorrectLines());
-                    System.out.println(puzzleButton.getActualLine());
                     puzzleDone = false;
                 }
             }
         }
-        if (puzzleDone) showPuzzleDoneDialog();
+        if (puzzleDone) {
+            gameLogic.addScore(timeLeftSec);
+            showPuzzleDoneDialog();
+        }
     }
 
     private void showPuzzleDoneDialog() {
@@ -558,12 +565,13 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                 .setCancelable(false)
                 .setPositiveButton("Go next!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        gameLogic.addScore(timeLeftSec);
                         gameLogic.newPuzzle();
                     }
                 });
         AlertDialog alert = builder.create();
-        alert.show();
+        if(!(NewGameActivity.this).isFinishing()) {
+            alert.show();
+        }
     }
 
     @Override
@@ -581,7 +589,9 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                     }
                 });
         AlertDialog alert = builder.create();
-        alert.show();
+        if(!(NewGameActivity.this).isFinishing()) {
+            alert.show();
+        }
     }
 
     @Override
@@ -603,7 +613,9 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
                     }
                 });
         AlertDialog alert = builder.create();
-        alert.show();
+        if(!(NewGameActivity.this).isFinishing()) {
+            alert.show();
+        }
     }
 
     @Override
@@ -652,6 +664,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         });
 
         AlertDialog alert = builder.create();
-        alert.show();
+        if(!(NewGameActivity.this).isFinishing()) {
+            alert.show();
+        }
     }
 }

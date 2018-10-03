@@ -1,5 +1,5 @@
-int partition(int arr[], int low, int high) {//-1
-    int pivot = arr[high]; int i = (low-1);//2
+int partition(int arr[],int low,int high) {//-1
+    int pivot=arr[high]; int i=low-1;//2
     for (int j=low; j<high; j++) {//3
         if (arr[j] <= pivot) {//4
             int temp = arr[++i];//5
@@ -12,10 +12,10 @@ int partition(int arr[], int low, int high) {//-1
     arr[high] = temp;//12
     return i+1;//13
 }//8,9,14,19,20
-void sort(int arr[], int low, int high) {//15
+void sort(int arr[],int low,int high) {//15
     if (low < high) {//16
         int pi = partition(arr, low, high);//17
-        sort(arr, low, pi-1); sort(arr, pi+1, high);//18
+        sort(arr,low,pi-1); sort(arr,pi+1,high);//18
     }//8,9,14,19,20
 }//8,9,14,19,20
 //DESCRIPTION:

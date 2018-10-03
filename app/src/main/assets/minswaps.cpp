@@ -5,9 +5,9 @@ int minSwaps(int arr[], int n) {//1
         arrPos[i].second = i;//4,5
     }//6,16,18,20
     sort(arrPos, arrPos + n);//7,8
-    vector<bool> vis(n, false); int ans = 0;//7,8
+    vector<bool> vis(n, false); int ans=0;//7,8
     for (int i = 0; i < n; i++) {//9
-        if (vis[i] || arrPos[i].second == i) continue;//10
+        if (vis[i] || arrPos[i].second==i) continue;//10
         int cycle_size = 0; int j = i;//11
         while (!vis[j]) {//12
             vis[j] = 1;//13

@@ -1,4 +1,4 @@
-static char getMaxOccuringChar(String str) {//1
+char getMaxOccuringChar(String str) {//1
     int count[] = new int[256];//2,3
     int len = str.length();//2,3
     for (int i=0; i<len; i++) {//-4

@@ -7,12 +7,12 @@ public class BinaryToDec {//-1
       	    binary = scanner.nextLine();//7
       	}//8,14,16,17
         int length = binary.length();//9
-        int decimal = 0;//-10
+        int dec = 0;//-10
         for (int i = 0; i < length; i++) {//11
-            int binaryDigit = binary.charAt (i) - '0';//12
-            decimal += (binaryDigit * Math.pow(2, length - 1 - i));//13
+            int digit = binary.charAt (i) - '0';//12
+            dec+=(digit*Math.pow(2,length-1-i));//13
         }//8,14,16,17
-        System.out.printf("In decimal: %d\n", decimal);//15
+        System.out.printf("In decimal:%d\n",dec);//15
 	}//8,14,16,17
 }//8,14,16,17
 //DESCRIPTION:

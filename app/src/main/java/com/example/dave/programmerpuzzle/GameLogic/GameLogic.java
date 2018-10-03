@@ -20,7 +20,7 @@ public class GameLogic implements GameTimerInterface {
 
     private GameTimer gameTimer;
 
-    private static final int SECONDS = 20;
+    private static final int SECONDS_FOR_PUZZLE = 720;
 
     public GameLogic(GameLogicInterface gameLogicInterface, List<Puzzle> puzzleList) {
         this.gameLogicInterface = gameLogicInterface;
@@ -36,10 +36,9 @@ public class GameLogic implements GameTimerInterface {
     public void newPuzzle() {
         Random random = new Random();
         currentPuzzle = puzzleList.remove(random.nextInt(puzzleList.size()));
-        System.out.println(puzzleList.size());
         gameLogicInterface.showPuzzle(currentPuzzle);
 
-        startTimer(SECONDS * 1000);
+        startTimer(SECONDS_FOR_PUZZLE * 1000);
         gameLogicInterface.setButtonsEnability(true);
     }
 
