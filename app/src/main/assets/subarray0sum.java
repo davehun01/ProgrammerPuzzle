@@ -5,7 +5,7 @@ static int maxLen(int arr[], int n) {//1
         for (int j = i; j < n; j++) {//5
             curr_sum += arr[j];//6
             if (curr_sum == 0) {//7
-				max_len = Math.max(max_len, j-i+1);//8
+				max_len=Math.max(max_len,j-i+1);//8
 			}//9,10,11,13
         }//9,10,11,13
     }//9,10,11,13

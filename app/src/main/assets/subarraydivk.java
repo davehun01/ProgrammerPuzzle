@@ -1,6 +1,6 @@
-static int longSubarrWthSumDivByK(int arr[], int n, int k) {//1
-    HashMap<Integer, Integer> um = new HashMap<Integer, Integer>();//2,3
-    int mod_arr[] = new int[n]; int max = 0; int curr_sum = 0;//2,3
+int subarrSumDivByK(int arr[],int n,int k) {//1
+    HashMap<Integer,Integer> um=new HashMap<>();//2,3
+    int mod_arr[]=new int[n]; int max=0; int curr_sum=0;//2,3
     for (int i = 0; i < n; i++) {//4
         curr_sum += arr[i];//5
         mod_arr[i] = ((curr_sum % k) + k) % k;//6

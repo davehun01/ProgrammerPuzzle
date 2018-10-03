@@ -1,6 +1,6 @@
 void bucketSort(float arr[], int n) {//1
     vector<float> b[n];//2
-    for (int i=0; i<n; i++) {//3
+    for (int i=0; i<n; i++) {//-3
        int bi = n*arr[i];//4
        b[bi].push_back(arr[i]);//5
     }//6,9,14,15,16

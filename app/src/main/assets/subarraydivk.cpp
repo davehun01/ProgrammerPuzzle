@@ -1,6 +1,6 @@
-int longSubarrWthSumDivByK(int arr[], int n, int k) {//1
+int subarrSumDivByK(int arr[],int n,int k) {//1
     unordered_map<int, int> um;//2,3
-    int mod_arr[n], max = 0; int curr_sum = 0;//2,3
+    int mod_arr[n], max=0; int curr_sum=0;//2,3
     for (int i = 0; i < n; i++) {//4
         curr_sum += arr[i];//5
         mod_arr[i] = ((curr_sum % k) + k) % k;//6
@@ -9,7 +9,7 @@ int longSubarrWthSumDivByK(int arr[], int n, int k) {//1
         if (mod_arr[i] == 0) {//9
 			max = i + 1;//10
 		}//7,11,14,17,18,20
-        else if (um.find(mod_arr[i]) == um.end()) {//-12
+        else if (um.find(mod_arr[i])==um.end()) {//-12
 			um[mod_arr[i]] = i;//13
 		}//7,11,14,17,18,20
         else if (max < (i - um[mod_arr[i]])){//15
