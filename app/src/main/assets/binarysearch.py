@@ -7,7 +7,7 @@ def binarySearch (arr, left, right, x):#1
             return binarySearch(arr, left, mid-1, x)#7
         else:#8
             return binarySearch(arr, mid+1, right, x)#9
-    else:#10
+    else:#-10
         return -1#11
 //DESCRIPTION:
 Create a Python function that implements binary search on an array.
