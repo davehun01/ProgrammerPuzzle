@@ -1,7 +1,9 @@
 package com.example.dave.programmerpuzzle.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +14,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.dave.programmerpuzzle.Application.MainApplication;
-import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
+import com.example.dave.programmerpuzzle.GameLogic.GameLogic;
 import com.example.dave.programmerpuzzle.R;
 
 import butterknife.BindView;
@@ -32,6 +34,14 @@ public class MainActivity extends AppCompatActivity
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
+
+    private static int PUZZLES_IN_ONE_GAME = 5;
+
+    public static int PUZZLE_COUNT = 0;
+
+    private String language = "";
+
+    private static GameLogic gameLogic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,22 +81,53 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_newgame) {
-            Intent newGameIntent = new Intent(MainActivity.this, NewGameActivity.class);
-            startActivity(newGameIntent);
-        } else if (id == R.id.nav_howtoplay) {
-            Intent howToPlayIntent = new Intent(MainActivity.this, HowToPlayActivity.class);
-            startActivity(howToPlayIntent);
-        } else if (id == R.id.nav_highscore) {
-            Intent highScoreIntent = new Intent(MainActivity.this, HighScoreActivity.class);
-            startActivity(highScoreIntent);
-        } else if (id == R.id.nav_settings) {
-            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity(settingsIntent);
+        switch (id) {
+            case R.id.nav_newgame:
+                startNewGame();
+                break;
+            case R.id.nav_howtoplay:
+                Intent howToPlayIntent = new Intent(MainActivity.this, HowToPlayActivity.class);
+                startActivity(howToPlayIntent);
+                break;
+            case R.id.nav_highscore:
+                Intent highScoreIntent = new Intent(MainActivity.this, HighScoreActivity.class);
+                startActivity(highScoreIntent);
+                break;
+            case R.id.nav_settings:
+                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                break;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void startNewGame() {
+        PUZZLE_COUNT = 0;
+        loadSettings();
+
+        gameLogic = new GameLogic(MainApplication.getInstance().getDataCache().getPuzzleList(language));
+
+        Intent newGameIntent = new Intent(MainActivity.this, NewGameActivity.class);
+        newGameIntent.putExtra("language", language);
+        startActivity(newGameIntent);
+    }
+
+    private void loadSettings() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        language = sharedPreferences.getString("key_language", "C++");
+
+        /*
+        if (sharedPreferences.getBoolean("key_sound",false) == true) {
+            soundPlayer = new MediaPlayer();
+        }
+         */
+    }
+
+    public static GameLogic getGameLogic() {
+        return gameLogic;
+    }
+
 }

@@ -1,16 +1,16 @@
 package com.example.dave.programmerpuzzle.GameLogic;
 
+import com.example.dave.programmerpuzzle.Activities.MainActivity;
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 import com.example.dave.programmerpuzzle.Tools.GameTimer;
 import com.example.dave.programmerpuzzle.Tools.GameTimerInterface;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
 
 public class GameLogic implements GameTimerInterface {
 
-    private GameLogicInterface gameLogicInterface;
+    private NewGameInterface newGameInterface;
 
     private List<Puzzle> puzzleList;
 
@@ -22,10 +22,13 @@ public class GameLogic implements GameTimerInterface {
 
     private static final int SECONDS_FOR_PUZZLE = 720;
 
-    public GameLogic(GameLogicInterface gameLogicInterface, List<Puzzle> puzzleList) {
-        this.gameLogicInterface = gameLogicInterface;
+    public GameLogic(List<Puzzle> puzzleList) {
         this.puzzleList = puzzleList;
         score = 0;
+    }
+
+    public void setNewGameInterface(NewGameInterface newGameInterface) {
+        this.newGameInterface = newGameInterface;
     }
 
     private void startTimer(long time) {
@@ -34,12 +37,13 @@ public class GameLogic implements GameTimerInterface {
     }
 
     public void newPuzzle() {
+        if (MainActivity.PUZZLE_COUNT != 0) end();
         Random random = new Random();
         currentPuzzle = puzzleList.remove(random.nextInt(puzzleList.size()));
-        gameLogicInterface.showPuzzle(currentPuzzle);
+        newGameInterface.showPuzzle(currentPuzzle);
 
         startTimer(SECONDS_FOR_PUZZLE * 1000);
-        gameLogicInterface.setButtonsEnability(true);
+        newGameInterface.setButtonsEnability(true);
     }
 
     public void addScore(long score) {
@@ -52,8 +56,8 @@ public class GameLogic implements GameTimerInterface {
 
     @Override
     public void tick(long timeLeft) {
-        gameLogicInterface.showTimer(timeLeft);
-        if (timeLeft < 1000) gameLogicInterface.timeExpired();
+        newGameInterface.showTimer(timeLeft);
+        if (timeLeft < 1000) newGameInterface.timeExpired();
     }
 
     @Override

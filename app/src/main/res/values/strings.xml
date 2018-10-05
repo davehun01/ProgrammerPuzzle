@@ -8,5 +8,8 @@
 
     <string name="skip_puzzle_confirm">Are you sure you want to skip this puzzle and move on to the next one?</string>
     <string name="back_button_confirm">Are you sure you want to quit to main menu?</string>
+    <string name="time_expired_ok_text">Go next!</string>
+    <string name="time_expired_text">Unfortunately, your time expired.</string>
+    <string name="puzzle_completed_text">Well done!</string>
 
 </resources>

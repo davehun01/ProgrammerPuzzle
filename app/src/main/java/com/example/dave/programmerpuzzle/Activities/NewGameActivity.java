@@ -2,10 +2,8 @@ package com.example.dave.programmerpuzzle.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
@@ -18,9 +16,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.dave.programmerpuzzle.Application.MainApplication;
-import com.example.dave.programmerpuzzle.GameLogic.GameLogic;
-import com.example.dave.programmerpuzzle.GameLogic.GameLogicInterface;
+import com.example.dave.programmerpuzzle.GameLogic.NewGameInterface;
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 import com.example.dave.programmerpuzzle.R;
 import com.example.dave.programmerpuzzle.View.PuzzleButton;
@@ -33,7 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewGameActivity extends AppCompatActivity implements GameLogicInterface {
+public class NewGameActivity extends AppCompatActivity implements NewGameInterface {
 
     @BindView(R.id.newGameActivity_PuzzleDescription) TextView puzzleDescription;
     @BindView(R.id.newGameActivity_Line_1) PuzzleButton line_1;
@@ -86,17 +82,13 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     @BindView(R.id.newGameActivity_Skip) ImageButton skipButton;
 
-    private int puzzleCount = 0;
-
-    private String language = "";
-
     private static int CURRENT_LINE = 0;
 
     private static String CURRENT_STARTING_SPACE = "";
 
     private long timeLeftSec;
 
-    private static int PUZZLES_IN_ONE_GAME = 5;
+    private String language;
 
     private List<PuzzleButton> lines = new ArrayList<>();
 
@@ -106,20 +98,15 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
     private List<PuzzleButton> usedLines = new ArrayList<>();
 
-    private GameLogic gameLogic;
-
     private MediaPlayer soundPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setLanguage();
+
         activityDesign();
-
-        loadSettings();
-
-        gameLogic = new GameLogic(this,
-                MainApplication.getInstance().getDataCache().getPuzzleList(language));
 
         fillLineList();
 
@@ -131,7 +118,12 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
 
         setOnTouchListeners();
 
-        gameLogic.newPuzzle();
+        loadPuzzle();
+    }
+
+    private void setLanguage() {
+        Intent intent = getIntent();
+        language = intent.getExtras().getString("language");
     }
 
     private void activityDesign() {
@@ -144,16 +136,9 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         timer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30f);
     }
 
-    private void loadSettings() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
-        language = sharedPreferences.getString("key_language", "C++");
-
-        /*
-        if (sharedPreferences.getBoolean("key_sound",false) == true) {
-            soundPlayer = new MediaPlayer();
-        }
-         */
-
+    private void loadPuzzle() {
+        MainActivity.getGameLogic().setNewGameInterface(this);
+        MainActivity.getGameLogic().newPuzzle();
     }
 
     private void fillLineList() {
@@ -255,31 +240,7 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(NewGameActivity.this);
-
-                    builder.setMessage(R.string.skip_puzzle_confirm);
-
-                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-
-                        public void onClick(DialogInterface dialog, int which) {
-                            gameLogic.newPuzzle();
-                            dialog.dismiss();
-                        }
-                    });
-
-                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    AlertDialog alert = builder.create();
-                    if(!(NewGameActivity.this).isFinishing()) {
-                        alert.show();
-                    }
+                    showYesNoDialog(getResources().getString(R.string.skip_puzzle_confirm));
                 }
                 return true;
             }
@@ -404,23 +365,8 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
         });
     }
 
-    @Override
     public void showPuzzle(Puzzle puzzle) {
-        if (puzzleCount == PUZZLES_IN_ONE_GAME) {
-            gameEnd();
-            return;
-        }
-        int heightDiff = puzzleDescription.getHeight();
-        final int[] widthDifferences = new int[10];
-        for (int i = 0; i < 10; i++) {
-            widthDifferences[i] = lines.get(i).getWidth();
-        }
-
         puzzleDescription.setText(puzzle.getDescription());
-
-        if (puzzleCount != 0) {
-            for (PuzzleButton puzzleButton : lines) puzzleButton.setText("");
-        }
 
         String[] puzzleLines = puzzle.getCode().split("\\r?\\n");
         if (!puzzle.getLanguage().equals("Python")) {
@@ -429,71 +375,10 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             tokenizeCode(puzzleLines, true);
         }
 
-        if (puzzleCount != 0) {
-            resetButtons(heightDiff, widthDifferences);
-            setOnTouchListeners();
-            gameLogic.end();
-        }
+        disableEmptyButtons();
+        moveFixedLines();
 
-        restartState();
-
-        if (puzzleCount == 0) {
-            disableEmptyButtons();
-
-            moveFixedLines();
-        }
-
-        puzzleCount++;
-    }
-
-    private void resetButtons(final int heightDiff, final int[] widthDifferences) {
-        final boolean[] movedFixedLines = {false};
-
-        for (int i = 0; i < lines.size(); i++) {
-            final int j = i;
-            lines.get(j).post(new Runnable() {
-                @Override
-                public void run() {
-                    int heightDifference = heightDiff - puzzleDescription.getHeight();
-                    lines.get(j).setOriginalY(lines.get(j).getOriginalY() - heightDifference);
-
-                    if (j < 10) {
-                        widthDifferences[j] -= lines.get(j).getWidth();
-                    } else {
-                        lines.get(j).setOriginalX(lines.get(j).getOriginalX() - widthDifferences[j - 10]);
-                    }
-
-                    moveButtonBack(lines.get(j));
-                    lines.get(j).setVisibility(View.VISIBLE);
-                    if (!movedFixedLines[0]) {
-                        disableEmptyButtons();
-                        moveFixedLines();
-                        movedFixedLines[0] = true;
-                    }
-                }
-            });
-        }
-
-        placeholder_1.post(new Runnable() {
-            @Override
-            public void run() {
-                int heightDifference = heightDiff - puzzleDescription.getHeight();
-                RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-                newPositionParams.leftMargin = Math.round(placeholder_1.getX());
-                newPositionParams.topMargin = Math.round(placeholder_1.getY() - heightDifference);
-                placeholder_1.setLayoutParams(newPositionParams);
-            }
-        });
-
-    }
-
-    private void restartState() {
-        CURRENT_LINE = 0;
-        usedPlaceholders.clear();
-        usedLines.clear();
-        hintButton.setImageResource(R.mipmap.ic_hint_transparent);
-        setButtonsEnability(true);
+        MainActivity.PUZZLE_COUNT++;
     }
 
     private void tokenizeCode(String[] puzzleLines, boolean languagePython) {
@@ -554,24 +439,13 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             }
         }
         if (puzzleDone) {
-            gameLogic.addScore(timeLeftSec);
+            MainActivity.getGameLogic().addScore(timeLeftSec);
             showPuzzleDoneDialog();
         }
     }
 
     private void showPuzzleDoneDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Well done!")
-                .setCancelable(false)
-                .setPositiveButton("Go next!", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        gameLogic.newPuzzle();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        if(!(NewGameActivity.this).isFinishing()) {
-            alert.show();
-        }
+        showOkDialog(getResources().getString(R.string.puzzle_completed_text));
     }
 
     @Override
@@ -580,29 +454,18 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
     }
 
     private void showTimeExpiredDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Time expired.")
-                .setCancelable(false)
-                .setPositiveButton("Go next!", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        gameLogic.newPuzzle();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        if(!(NewGameActivity.this).isFinishing()) {
-            alert.show();
-        }
+        showOkDialog(getResources().getString(R.string.time_expired_text));
     }
 
     @Override
     public void gameEnd() {
-        gameLogic.end();
+        MainActivity.getGameLogic().end();
         showGameEndDialog();
     }
 
     private void showGameEndDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Game is finished. Your score is " + gameLogic.getScore() + ".")
+        builder.setMessage("Game is finished. Your score is " + MainActivity.getGameLogic().getScore() + ".")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -663,6 +526,54 @@ public class NewGameActivity extends AppCompatActivity implements GameLogicInter
             }
         });
 
+        AlertDialog alert = builder.create();
+        if(!(NewGameActivity.this).isFinishing()) {
+            alert.show();
+        }
+    }
+
+    private void showYesNoDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewGameActivity.this);
+
+        builder.setMessage(message);
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (MainActivity.PUZZLE_COUNT != 5) {
+                    recreate();
+                } else {
+                    gameEnd();
+                }
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        if(!(NewGameActivity.this).isFinishing()) {
+            alert.show();
+        }
+    }
+
+    private void showOkDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(R.string.time_expired_ok_text, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (MainActivity.PUZZLE_COUNT != 5) {
+                            recreate();
+                        } else {
+                            gameEnd();
+                        }
+                    }
+                });
         AlertDialog alert = builder.create();
         if(!(NewGameActivity.this).isFinishing()) {
             alert.show();

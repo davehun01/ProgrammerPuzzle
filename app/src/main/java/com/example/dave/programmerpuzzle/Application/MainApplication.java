@@ -42,5 +42,4 @@ public class MainApplication extends android.app.Application {
     public DataCache getDataCache() {
         return dataCache;
     }
-
 }

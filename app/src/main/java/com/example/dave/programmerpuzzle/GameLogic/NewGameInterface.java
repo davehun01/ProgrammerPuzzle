@@ -2,7 +2,7 @@ package com.example.dave.programmerpuzzle.GameLogic;
 
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 
-public interface GameLogicInterface {
+public interface NewGameInterface {
     void showPuzzle(Puzzle puzzle);
     void timeExpired();
     void gameEnd();
