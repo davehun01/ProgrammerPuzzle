@@ -24,7 +24,7 @@ public class HighScoreDao extends AbstractDao<HighScore, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Player = new Property(1, String.class, "player", false, "PLAYER");
-        public final static Property Points = new Property(2, int.class, "points", false, "POINTS");
+        public final static Property Points = new Property(2, long.class, "points", false, "POINTS");
     }
 
 
@@ -93,7 +93,7 @@ public class HighScoreDao extends AbstractDao<HighScore, Long> {
         HighScore entity = new HighScore( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // player
-            cursor.getInt(offset + 2) // points
+            cursor.getLong(offset + 2) // points
         );
         return entity;
     }
@@ -102,7 +102,7 @@ public class HighScoreDao extends AbstractDao<HighScore, Long> {
     public void readEntity(Cursor cursor, HighScore entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setPlayer(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setPoints(cursor.getInt(offset + 2));
+        entity.setPoints(cursor.getLong(offset + 2));
      }
     
     @Override

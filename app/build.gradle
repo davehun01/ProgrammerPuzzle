@@ -38,19 +38,19 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //ButterKnife
-    compile "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
+    implementation "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
     annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
 
     //Lombok
-    provided 'org.projectlombok:lombok:1.16.18'
-    provided 'javax.annotation:jsr250-api:1.0'
+    compileOnly 'org.projectlombok:lombok:1.16.18'
+    compileOnly 'javax.annotation:jsr250-api:1.0'
     annotationProcessor 'org.projectlombok:lombok:1.16.18'
 
     //GreenDAO
-    compile 'org.greenrobot:greendao:3.2.2'
+    implementation 'org.greenrobot:greendao:3.2.2'
 
     //ConstraintLayout
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 greendao {

@@ -7,5 +7,6 @@ public interface NewGameInterface {
     void timeExpired();
     void gameEnd();
     void showTimer(long timeLeft);
+    void timeExpiring();
     void setButtonsEnability(boolean enabled);
 }

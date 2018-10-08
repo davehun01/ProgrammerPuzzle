@@ -15,10 +15,10 @@ public class HighScore {
     private String player;
 
     @Property
-    private int points;
+    private long points;
 
-    @Generated(hash = 1949885959)
-    public HighScore(Long id, String player, int points) {
+    @Generated(hash = 609411273)
+    public HighScore(Long id, String player, long points) {
         this.id = id;
         this.player = player;
         this.points = points;
@@ -44,11 +44,15 @@ public class HighScore {
         this.player = player;
     }
 
-    public int getPoints() {
+    public long getPoints() {
         return this.points;
     }
 
     public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setPoints(long points) {
         this.points = points;
     }
 }

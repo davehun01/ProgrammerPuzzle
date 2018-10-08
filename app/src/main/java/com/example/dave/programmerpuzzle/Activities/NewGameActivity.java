@@ -2,8 +2,10 @@ package com.example.dave.programmerpuzzle.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
@@ -16,9 +18,11 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.dave.programmerpuzzle.Application.MainApplication;
 import com.example.dave.programmerpuzzle.GameLogic.NewGameInterface;
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 import com.example.dave.programmerpuzzle.R;
+import com.example.dave.programmerpuzzle.Tools.VibratorEngine;
 import com.example.dave.programmerpuzzle.View.PuzzleButton;
 
 import java.util.ArrayList;
@@ -90,6 +94,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
 
     private String language;
 
+    private boolean soundOn;
+
     private List<PuzzleButton> lines = new ArrayList<>();
 
     private List<Button> placeholders = new ArrayList<>();
@@ -100,6 +106,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
 
     private MediaPlayer soundPlayer;
 
+    private VibratorEngine vibratorEngine;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +115,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         setLanguage();
 
         activityDesign();
+
+        loadSettings();
 
         fillLineList();
 
@@ -134,6 +144,15 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
 
         timer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30f);
+    }
+
+    private void loadSettings() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getInstance());
+        boolean vibrationOn = sharedPreferences.getBoolean("key_vibration", false);
+        if (vibrationOn) {
+            vibratorEngine = new VibratorEngine(this);
+        }
+        soundOn = sharedPreferences.getBoolean("key_sound", false);
     }
 
     private void loadPuzzle() {
@@ -200,6 +219,10 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                        if (vibratorEngine != null) {
+                            vibratorEngine.vibrate(VibratorEngine.SHORT_VIBRATION_TIME);
+                        }
+                        playSound(R.raw.movebutton);
                         moveButton(view, j);
                     }
                     return true;
@@ -334,6 +357,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                        vibratorEngine.vibrate(VibratorEngine.SHORT_VIBRATION_TIME);
+                        playSound(R.raw.movebutton);
                         moveButtonBack(view);
                     }
                     return true;
@@ -439,6 +464,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
             }
         }
         if (puzzleDone) {
+            playSound(R.raw.puzzledone);
             MainActivity.getGameLogic().addScore(timeLeftSec);
             showPuzzleDoneDialog();
         }
@@ -469,8 +495,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //TODO:
-                        //saveHighScore();
+                        MainActivity.getGameLogic().saveHighScore();
                         Intent mainMenuIntent = new Intent(NewGameActivity.this, MainActivity.class);
                         startActivity(mainMenuIntent);
                     }
@@ -493,6 +518,12 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
             timer.setText(minutes + ":0" + seconds);
         }
 
+        if (timeLeftSec < 11 && !this.isFinishing()) timeExpiring();
+    }
+
+    @Override
+    public void timeExpiring() {
+        playSound(R.raw.tick);
     }
 
     @Override
@@ -539,7 +570,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (MainActivity.PUZZLE_COUNT != 5) {
+                if (MainActivity.PUZZLE_COUNT != MainActivity.PUZZLES_IN_ONE_GAME) {
                     recreate();
                 } else {
                     gameEnd();
@@ -567,7 +598,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
                 .setCancelable(false)
                 .setPositiveButton(R.string.time_expired_ok_text, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if (MainActivity.PUZZLE_COUNT != 5) {
+                        if (MainActivity.PUZZLE_COUNT != MainActivity.PUZZLES_IN_ONE_GAME) {
                             recreate();
                         } else {
                             gameEnd();
@@ -577,6 +608,22 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         AlertDialog alert = builder.create();
         if(!(NewGameActivity.this).isFinishing()) {
             alert.show();
+        }
+    }
+
+    private void playSound(int resourceId) {
+        if (!soundOn) return;
+        soundPlayer = MediaPlayer.create(this, resourceId);
+        if (soundPlayer != null) {
+            soundPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaplayer) {
+                    mediaplayer.stop();
+                    mediaplayer.release();
+                }
+            });
+
+            soundPlayer.start();
         }
     }
 }
