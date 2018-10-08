@@ -2,9 +2,9 @@ def getMaxOccuringChar(str):#1
     count = [0] * 256#2,3,4
     max = -1#2,3,4
     c = ''#2,3,4
-    for i in str:#5
+    for i in str:#5,7
         count[ord(i)]+=1;#6
-    for i in str:#7
+    for i in str:#5,7
         if max < count[ord(i)]:#8
             max = count[ord(i)]#9,10
             c = i#9,10

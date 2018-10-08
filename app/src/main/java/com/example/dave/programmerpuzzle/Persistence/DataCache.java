@@ -1,5 +1,6 @@
 package com.example.dave.programmerpuzzle.Persistence;
 
+import com.example.dave.programmerpuzzle.Persistence.Entities.HighScore;
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 
 import java.util.ArrayList;
@@ -11,9 +12,12 @@ public class DataCache {
 
     private List<Puzzle> puzzleList;
 
+    private List<HighScore> highScoreList;
+
     public DataCache(DaoManager daoManager) {
         this.daoManager = daoManager;
         puzzleList = daoManager.getAllPuzzles();
+        highScoreList = daoManager.getAllHighScores();
     }
 
     public List<Puzzle> getPuzzleList() {
@@ -56,5 +60,18 @@ public class DataCache {
         puzzleList = new ArrayList<>();
     }
 
+    public List<HighScore> getHighScoreList() {
+        return highScoreList;
+    }
 
+    public void createHighScore(HighScore highScore) {
+        Long id = daoManager.insertHighScore(highScore);
+        highScore.setId(id);
+        highScoreList.add(highScore);
+    }
+
+    public void deleteAllHighScores() {
+        daoManager.deleteAllHighScores();
+        highScoreList = new ArrayList<>();
+    }
 }

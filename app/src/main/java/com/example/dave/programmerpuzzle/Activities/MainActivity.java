@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
 
-    private static int PUZZLES_IN_ONE_GAME = 5;
+    public static int PUZZLES_IN_ONE_GAME = 5;
 
     public static int PUZZLE_COUNT = 0;
 
@@ -118,12 +118,6 @@ public class MainActivity extends AppCompatActivity
     private void loadSettings() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
         language = sharedPreferences.getString("key_language", "C++");
-
-        /*
-        if (sharedPreferences.getBoolean("key_sound",false) == true) {
-            soundPlayer = new MediaPlayer();
-        }
-         */
     }
 
     public static GameLogic getGameLogic() {

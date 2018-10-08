@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
     <PreferenceCategory
-        android:key="ingame_category"
-        android:title="In-game">
+        android:key="player_category"
+        android:title="Player">
 
         <EditTextPreference
             android:dialogTitle="Your Name"
@@ -11,6 +12,12 @@
             android:key="key_name"
             android:summary="Player">
         </EditTextPreference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="ingame_category"
+        android:title="In-game">
 
         <ListPreference
             android:title="Language"
@@ -21,7 +28,7 @@
         </ListPreference>
 
         <SwitchPreference
-            android:title="Sound"
+            android:title="Sounds"
             android:key="key_sound"
             android:editable="true">
         </SwitchPreference>
