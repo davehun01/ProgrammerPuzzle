@@ -28,7 +28,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/newGameActivity_Timer"
-                    android:textColor="@color/colorWhite"/>
+                    android:textColor="@color/colorWhite"
+                    android:textSize="30sp"/>
 
                 <ImageButton
                     android:layout_width="50dp"
@@ -41,7 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/newGameActivity_Hint"
-                    android:textColor="@color/colorWhite"/>
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"/>
 
                 <com.example.dave.programmerpuzzle.View.PuzzleButton
                     android:id="@+id/newGameActivity_Line_1"

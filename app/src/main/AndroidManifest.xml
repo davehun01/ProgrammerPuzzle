@@ -3,7 +3,7 @@
     package="com.example.dave.programmerpuzzle">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.access" />
+
     <application
         android:name=".Application.MainApplication"
         android:allowBackup="true"
@@ -32,9 +32,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.SettingsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activities.GameEndActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

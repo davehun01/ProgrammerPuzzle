@@ -142,8 +142,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         ButterKnife.bind(this);
 
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
-
-        timer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30f);
     }
 
     private void loadSettings() {

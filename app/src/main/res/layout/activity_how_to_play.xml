@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,4 +8,43 @@
     android:background="@color/colorTeal"
     tools:context=".Activities.HowToPlayActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/howToPlayActivity_Text1"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/howToPlayActivity_HintButton"
+        android:layout_below="@id/howToPlayActivity_Text1"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_hint_transparent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/howToPlayActivity_Text2"
+        android:layout_below="@id/howToPlayActivity_HintButton"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/howToPlayActivity_SkipButton"
+        android:layout_below="@id/howToPlayActivity_Text2"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_skip_transparent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/howToPlayActivity_Text3"
+        android:layout_below="@id/howToPlayActivity_SkipButton"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"/>
+
+</RelativeLayout>
