@@ -8,43 +8,55 @@
     android:background="@color/colorTeal"
     tools:context=".Activities.HowToPlayActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/howToPlayActivity_Text1"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/howToPlayActivity_HintButton"
-        android:layout_below="@id/howToPlayActivity_Text1"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_hint_transparent"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/howToPlayActivity_Text2"
-        android:layout_below="@id/howToPlayActivity_HintButton"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/howToPlayActivity_Text1"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/howToPlayActivity_SkipButton"
-        android:layout_below="@id/howToPlayActivity_Text2"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_skip_transparent"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/howToPlayActivity_HintButton"
+                android:layout_below="@id/howToPlayActivity_Text1"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ic_hint_transparent"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/howToPlayActivity_Text3"
-        android:layout_below="@id/howToPlayActivity_SkipButton"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/howToPlayActivity_Text2"
+                android:layout_below="@id/howToPlayActivity_HintButton"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/howToPlayActivity_SkipButton"
+                android:layout_below="@id/howToPlayActivity_Text2"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ic_skip_transparent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/howToPlayActivity_Text3"
+                android:layout_below="@id/howToPlayActivity_SkipButton"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

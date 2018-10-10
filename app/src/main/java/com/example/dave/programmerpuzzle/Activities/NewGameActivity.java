@@ -3,13 +3,13 @@ package com.example.dave.programmerpuzzle.Activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,6 +138,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
 
     private void activityDesign() {
         setContentView(R.layout.activity_new_game);
+
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         ButterKnife.bind(this);
 
@@ -355,7 +357,9 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                        vibratorEngine.vibrate(VibratorEngine.SHORT_VIBRATION_TIME);
+                        if (vibratorEngine != null) {
+                            vibratorEngine.vibrate(VibratorEngine.SHORT_VIBRATION_TIME);
+                        }
                         playSound(R.raw.movebutton);
                         moveButtonBack(view);
                     }

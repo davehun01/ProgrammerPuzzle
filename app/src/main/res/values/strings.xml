@@ -16,4 +16,7 @@
     <string name="howToPlayActivity_Text2">This button will move a single button to the next line, which will be guaranteed to be at the correct position. Be careful, this option is available once per puzzle. If the puzzle is too hard or uninteresting, you can move to the next one by using the following:</string>
     <string name="howToPlayActivity_Text3">This button will load the next puzzle for you. There are 5 puzzles in a single game, at the end you will receive a score based on how well you did. Only 100% completed puzzles give score. The programming language for the puzzles can be changed in the settings.</string>
 
+    <string name="Player">Player</string>
+    <string name="Score">Score</string>
+
 </resources>
