@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 public class PuzzleInitializer {
 
     private DataCache dataCache;
-    private static boolean created = false;
 
     public PuzzleInitializer(DataCache dataCache) {
         this.dataCache = dataCache;
@@ -20,8 +19,7 @@ public class PuzzleInitializer {
 
     public void initPuzzles() {
         try {
-            if (dataCache.getPuzzleList().size() == 0 || !created) {
-                dataCache.deleteAllPuzzles();
+            if (dataCache.getPuzzleList().size() == 0) {
                 createPuzzles();
             }
         } catch (Exception ex) {
@@ -67,9 +65,5 @@ public class PuzzleInitializer {
             reader.close();
             dataCache.createPuzzle(new Puzzle((Long) null, description.toString(), code.toString(), language));
         }
-    }
-
-    public void isCreated(boolean created) {
-        this.created = created;
     }
 }

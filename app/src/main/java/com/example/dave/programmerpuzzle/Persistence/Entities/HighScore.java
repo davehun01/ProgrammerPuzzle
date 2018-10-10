@@ -1,12 +1,14 @@
 package com.example.dave.programmerpuzzle.Persistence.Entities;
 
+import android.support.annotation.NonNull;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
-public class HighScore {
+public class HighScore implements Comparable<HighScore> {
 
     @Id(autoincrement = true)
     private Long id;
@@ -54,5 +56,13 @@ public class HighScore {
 
     public void setPoints(long points) {
         this.points = points;
+    }
+
+    @Override
+    public int compareTo(@NonNull HighScore other) {
+        if (this.points == other.points) return 0;
+        if (this.points > other.points) return -1;
+        if (this.points < other.points) return 1;
+        return 0;
     }
 }
