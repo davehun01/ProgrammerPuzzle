@@ -79,33 +79,22 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
     @BindView(R.id.newGameActivity_Placeholder_20) Button placeholder_20;
 
     @BindView(R.id.newgameActivity_RelLayout) ViewGroup viewGroup;
-
     @BindView(R.id.newGameActivity_Timer) TextView timer;
-
     @BindView(R.id.newGameActivity_Hint) ImageButton hintButton;
-
     @BindView(R.id.newGameActivity_Skip) ImageButton skipButton;
 
     private static int CURRENT_LINE = 0;
-
     private static String CURRENT_STARTING_SPACE = "";
-
     private long timeLeftSec;
-
     private String language;
-
     private boolean soundOn;
 
     private List<PuzzleButton> lines = new ArrayList<>();
-
     private List<Button> placeholders = new ArrayList<>();
-
     private List<Integer> usedPlaceholders = new ArrayList<>();
-
     private List<PuzzleButton> usedLines = new ArrayList<>();
 
     private MediaPlayer soundPlayer;
-
     private VibratorEngine vibratorEngine;
 
     @Override
@@ -236,26 +225,57 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    for (int i = 0; i < lines.size(); i++) {
-                        if (lines.get(i).getCorrectLines() == null) continue;
-                        int nextFreeLine = -1;
-                        for (int j = 0; j < 20; j++) {
-                            if (!usedPlaceholders.contains(j)) {
-                                nextFreeLine = j;
-                                break;
-                            }
-                        }
-                        if (lines.get(i).getCorrectLines().contains(nextFreeLine) && !usedLines.contains(lines.get(i))) {
-                            moveButton(lines.get(i), i);
-                            hintButton.setImageResource(R.mipmap.ic_hint_used_transparent);
-                            hintButton.setEnabled(false);
-                            break;
-                        }
-                    }
+                    useHint();
                 }
                 return true;
             }
         });
+    }
+
+    private void useHint() {
+        boolean areLinesCorrect = areLinesCorrect();
+
+        if (!areLinesCorrect) {
+            moveIncorrectLinesBack();
+            hintButton.setImageResource(R.mipmap.ic_hint_used_transparent);
+            hintButton.setEnabled(false);
+            return;
+        }
+
+        for (int i = 0; i < lines.size(); i++) {
+            if (lines.get(i).getCorrectLines() == null) continue;
+            int nextFreeLine = -1;
+            for (int j = 0; j < 20; j++) {
+                if (!usedPlaceholders.contains(j)) {
+                    nextFreeLine = j;
+                    break;
+                }
+            }
+            if (lines.get(i).getCorrectLines().contains(nextFreeLine) && !usedLines.contains(lines.get(i))) {
+                moveButton(lines.get(i), i);
+                hintButton.setImageResource(R.mipmap.ic_hint_used_transparent);
+                hintButton.setEnabled(false);
+                break;
+            }
+        }
+    }
+
+    private boolean areLinesCorrect() {
+        for (int i = 0; i < usedLines.size(); i++) {
+            if (usedLines.get(i).getCorrectLines().get(0) >= 0 &&
+                    !usedLines.get(i).getCorrectLines().contains(usedLines.get(i).getActualLine())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void moveIncorrectLinesBack() {
+        for (int i = 0; i < lines.size(); i++) {
+            if (lines.get(i).getCorrectLines() != null && !lines.get(i).getCorrectLines().contains(lines.get(i).getActualLine())) {
+                moveButtonBack(lines.get(i));
+            }
+        }
     }
 
     private void skipButtonOnTouchListener() {
@@ -293,6 +313,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         refreshListeners();
 
         checkPuzzleDone();
+
+        lines.get(j).setMoved(true);
     }
 
     private void moveFixedButton(View view, int j, int place) {
@@ -304,6 +326,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         view.setLayoutParams(newPositionParams);
         ((PuzzleButton) view).setActualLine(place);
         view.setEnabled(false);
+        ((PuzzleButton) view).setMoved(true);
+
         usedPlaceholders.add(place);
         usedLines.add(lines.get(j));
     }

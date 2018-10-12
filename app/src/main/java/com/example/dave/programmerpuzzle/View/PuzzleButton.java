@@ -6,9 +6,6 @@ import android.util.AttributeSet;
 
 import java.util.ArrayList;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class PuzzleButton extends AppCompatButton implements Comparable<PuzzleButton> {
 
     private ArrayList<Integer> correctLines;
@@ -16,6 +13,8 @@ public class PuzzleButton extends AppCompatButton implements Comparable<PuzzleBu
 
     private int originalX;
     private int originalY;
+
+    private boolean moved = false;
 
     public PuzzleButton(Context context) {
         super(context);
@@ -63,6 +62,10 @@ public class PuzzleButton extends AppCompatButton implements Comparable<PuzzleBu
     public void setOriginalY(int originalY) {
         this.originalY = originalY;
     }
+
+    public boolean isMoved() { return moved; }
+
+    public void setMoved(boolean moved) { this.moved = moved; }
 
     public int compareTo(PuzzleButton other) {
         return(this.actualLine - other.actualLine);
