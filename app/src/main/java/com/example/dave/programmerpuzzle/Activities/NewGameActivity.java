@@ -103,9 +103,9 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
 
         setLanguage();
 
-        activityDesign();
-
         loadSettings();
+
+        activityDesign();
 
         fillLineList();
 
@@ -126,17 +126,24 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
     }
 
     private void activityDesign() {
-        setContentView(R.layout.activity_new_game);
-
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         ButterKnife.bind(this);
 
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
     }
 
     private void loadSettings() {
+        setContentView(R.layout.activity_new_game);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getInstance());
+
+        String orientation = sharedPreferences.getString("key_orientation", "Portrait");
+        
+        if (orientation.equals("Portrait")) {
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else {
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+
         boolean vibrationOn = sharedPreferences.getBoolean("key_vibration", false);
         if (vibrationOn) {
             vibratorEngine = new VibratorEngine(this);
@@ -491,7 +498,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         }
         if (puzzleDone) {
             playSound(R.raw.puzzledone);
-            MainActivity.getGameLogic().addScore(timeLeftSec);
+            MainActivity.getGameLogic().addScore(timeLeftSec * usedLines.size() / 20);
             showPuzzleDoneDialog();
         }
     }

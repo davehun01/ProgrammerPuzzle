@@ -1,6 +1,6 @@
 int maxLen(int arr[], int n) {//1
     int max_len = 0;//2
-    for (int i = 0; i < n; i++) {//3
+    for (int i = 0; i < n; i++) {//-3
         int curr_sum = 0;//4
         for (int j = i; j < n; j++) {//5
             curr_sum += arr[j];//6

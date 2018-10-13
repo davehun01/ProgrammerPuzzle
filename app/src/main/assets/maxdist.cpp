@@ -5,7 +5,7 @@ int maxDistance(int arr[], int n) {//1
         if (mp.find(arr[i])==mp.end()) {//5
 			mp[arr[i]] = i;//6
 		} else {//7
-			max_dist = max(max_dist,i-mp[arr[i]]);//8
+			max_dist = max(max_dist,i-mp[arr[i]]);//-8
 		}//9,10,12
     }//9,10,12
     return max_dist;//11

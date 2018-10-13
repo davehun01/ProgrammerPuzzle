@@ -5,4 +5,9 @@
         <item>C++</item>
         <item>Python</item>
     </string-array>
+
+    <string-array name="screen_orientations">
+        <item>Portrait</item>
+        <item>Landscape</item>
+    </string-array>
 </resources>

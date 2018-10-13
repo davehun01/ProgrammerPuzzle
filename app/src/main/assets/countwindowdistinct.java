@@ -1,6 +1,6 @@
-int countWindow(int win[], int k) {//1
+int countWindow(int win[], int k) {//-1
     int dist_count = 0;//2
-    for (int i = 0; i < k; i++) {//3
+    for (int i = 0; i < k; i++) {//-3
         int j;//4
         for (j = 0; j < i; j++) {//5
 			if (win[i]==win[j]) break;//6
@@ -9,7 +9,7 @@ int countWindow(int win[], int k) {//1
     }//7,9,11,16,17
     return dist_count;//14
 }//7,9,11,16,17
-void countDistinct(int arr[],int n,int k) {//12
+void countDistinct(int arr[],int n,int k) {//-12
     for (int i = 0; i <= n - k; i++) {//13
 		System.out.println(countWindow)//-14
 		(Arrays.copyOfRange(arr,i,arr.length),k));//-15

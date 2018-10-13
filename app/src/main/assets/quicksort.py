@@ -11,7 +11,7 @@ def sort(array=[12,4,5,6,7,3,1,15]):#1
                 equal.append(x)#11
             if x > pivot:#12
                 greater.append(x)#13
-        return sort(less)+equal+sort(greater)#14
+        return sort(less)+equal+sort(greater)#-14
     else:#15
         return array#16
 //DESCRIPTION:

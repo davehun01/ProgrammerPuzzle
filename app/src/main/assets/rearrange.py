@@ -4,9 +4,9 @@ def rearrange( A, len):#1
             x = A[i];#3,4
             while (A[x] != -1 and A[x] != x):#5
                 temp = A[x]#6
-                A[x] = x#7
+                A[x] = x#-7
                 x = temp#8
-            A[x] = x;#9
+            A[x] = x;#-9
             if (A[i] != i) :#10
                 A[i] = -1;#11
 //DESCRIPTION:

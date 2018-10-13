@@ -6,7 +6,7 @@
         android:title="Player">
 
         <EditTextPreference
-            android:dialogTitle="Your Name"
+            android:dialogTitle="Your name"
             android:title="Name"
             android:inputType="textCapWords"
             android:key="key_name"
@@ -24,6 +24,15 @@
             android:key="key_language"
             android:entries="@array/languages"
             android:entryValues="@array/languages"
+            android:summary="%s">
+        </ListPreference>
+
+        <ListPreference
+            android:title="Screen orientation"
+            android:key="key_orientation"
+            android:entries="@array/screen_orientations"
+            android:entryValues="@array/screen_orientations"
+            android:defaultValue="Portrait"
             android:summary="%s">
         </ListPreference>
 

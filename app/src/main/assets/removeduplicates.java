@@ -8,13 +8,13 @@ String removeDupsSorted(String str) {//-1
         }//8,10,13,19
         ip_ind++;//9
     }//8,10,13,19
-    str = new String(arr);//11
+    str = new String(arr);//-11
     return str.substring(0,res_ind);//12
 }//8,10,13,19
-String removeDups(String str) {//14
+String removeDups(String str) {//-14
 	char temp[] = str.toCharArray();//15
-	Arrays.sort(temp);//16
-	str = new String(temp);//17
+	Arrays.sort(temp);//-16
+	str = new String(temp);//-17
 	return removeDupsSorted(str);//18
 }//8,10,13,19
 //DESCRIPTION:

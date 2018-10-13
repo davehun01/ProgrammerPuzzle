@@ -1,7 +1,7 @@
 public class BinaryToDec {//-1
-	public static void main(String[] args) {//2
-      	Scanner scanner = new Scanner(System.in);//3,4
-      	String bin ="";//3,4
+	public static void main(String[] args) {//-2
+      	Scanner scanner = new Scanner(System.in);//3
+      	String bin ="";//-4
       	System.out.print("Enter binary number: ");//-5
       	if (scanner.hasNextLine()) {//6
       	    bin = scanner.nextLine();//7

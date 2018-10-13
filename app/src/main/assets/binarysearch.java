@@ -1,4 +1,4 @@
-int binarySearch(int arr[],int left,int right,int x) {//1
+int binarySearch(int arr[],int left,int right,int x) {//-1
     if (right>=left) {//2
         int mid = left + (right - left)/2;//3
         if (arr[mid] == x) {//-4

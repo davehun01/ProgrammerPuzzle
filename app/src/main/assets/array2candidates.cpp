@@ -1,4 +1,4 @@
-bool hasTwo(int A[], int arr_size, int sum) {//1
+bool hasTwo(int A[], int arr_size, int sum) {//-1
     int left, right;//2
     sort(A, A + arr_size);//-3
     left = 0;//4,5
