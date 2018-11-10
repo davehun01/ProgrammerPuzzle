@@ -63,10 +63,6 @@ public class PuzzleButton extends AppCompatButton implements Comparable<PuzzleBu
         this.originalY = originalY;
     }
 
-    public boolean isMoved() { return moved; }
-
-    public void setMoved(boolean moved) { this.moved = moved; }
-
     public int compareTo(PuzzleButton other) {
         return(this.actualLine - other.actualLine);
     }

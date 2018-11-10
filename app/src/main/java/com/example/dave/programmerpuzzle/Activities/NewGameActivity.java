@@ -324,8 +324,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         refreshListeners();
 
         checkPuzzleDone();
-
-        lines.get(j).setMoved(true);
     }
 
     private void moveFixedButton(View view, int j, int place) {
@@ -337,7 +335,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         view.setLayoutParams(newPositionParams);
         ((PuzzleButton) view).setActualLine(place);
         view.setEnabled(false);
-        ((PuzzleButton) view).setMoved(true);
 
         usedPlaceholders.add(place);
         usedLines.add(lines.get(j));
@@ -501,8 +498,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
             if (puzzleButton.getCorrectLines() != null && !puzzleButton.getText().toString().equals("")) {
                 if (!puzzleButton.getCorrectLines().contains(puzzleButton.getActualLine()) &&
                         !(puzzleButton.getCorrectLines().get(0) <= 0)) {
-                    System.out.println(puzzleButton.getCorrectLines());
-                    System.out.println(puzzleButton.getActualLine());
                     puzzleDone = false;
                     break;
                 }

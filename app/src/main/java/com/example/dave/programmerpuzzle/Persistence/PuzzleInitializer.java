@@ -19,9 +19,7 @@ public class PuzzleInitializer {
 
     public void initPuzzles() {
         try {
-            if (dataCache.getPuzzleList().size() == 0) {
-                createPuzzles();
-            }
+            if (dataCache.getPuzzleList().size() == 0) createPuzzles();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
