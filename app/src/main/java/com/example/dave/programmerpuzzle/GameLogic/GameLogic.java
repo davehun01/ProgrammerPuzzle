@@ -9,7 +9,6 @@ import com.example.dave.programmerpuzzle.Persistence.Entities.HighScore;
 import com.example.dave.programmerpuzzle.Persistence.Entities.Puzzle;
 import com.example.dave.programmerpuzzle.Tools.GameTimer;
 import com.example.dave.programmerpuzzle.Tools.GameTimerInterface;
-import com.example.dave.programmerpuzzle.Tools.VibratorEngine;
 
 import java.util.List;
 import java.util.Random;
@@ -26,7 +25,7 @@ public class GameLogic implements GameTimerInterface {
 
     private GameTimer gameTimer;
 
-    private static final int SECONDS_FOR_PUZZLE = 720;
+    private static final int SECONDS_FOR_PUZZLE = 12 * 60;
 
     public GameLogic(List<Puzzle> puzzleList) {
         this.puzzleList = puzzleList;

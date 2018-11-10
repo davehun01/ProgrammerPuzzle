@@ -4,10 +4,10 @@ public int[] rearrange(int[] A) {//1
 			int x = A[i];//3,4
 			while (A[x] != -1 && A[x] != x) {//5
 				int temp = A[x];//6
-				A[x] = x;//7
+				A[x] = x;//7,10
 				x = temp;//8
 			}//9,13,14,15,17
-			A[x] = x;//10
+			A[x] = x;//7,10
 			if (A[i] != i) {//11
 				A[i] = -1;//12
 			}//9,13,14,15,17

@@ -57,6 +57,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
     @BindView(R.id.newGameActivity_Line_19) PuzzleButton line_19;
     @BindView(R.id.newGameActivity_Line_20) PuzzleButton line_20;
 
+    @BindView(R.id.newGameActivity_SeparatorLine) View separatorLine;
+
     @BindView(R.id.newGameActivity_Placeholder_1) Button placeholder_1;
     @BindView(R.id.newGameActivity_Placeholder_2) Button placeholder_2;
     @BindView(R.id.newGameActivity_Placeholder_3) Button placeholder_3;
@@ -137,7 +139,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getInstance());
 
         String orientation = sharedPreferences.getString("key_orientation", "Portrait");
-        
+
         if (orientation.equals("Portrait")) {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else {
@@ -187,17 +189,18 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
                     lines.get(i).setOriginalY(Math.round(lines.get(i).getY()));
                     setXY(lines.get(i));
                 }
+                setXY(separatorLine);
                 setXY(placeholder_1);
             }
         });
     }
 
-    private void setXY(Button button) {
+    private void setXY(View view) {
         RelativeLayout.LayoutParams newPositionParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        newPositionParams.leftMargin = Math.round(button.getX());
-        newPositionParams.topMargin = Math.round(button.getY());
-        button.setLayoutParams(newPositionParams);
+        newPositionParams.leftMargin = Math.round(view.getX());
+        newPositionParams.topMargin = Math.round(view.getY());
+        view.setLayoutParams(newPositionParams);
     }
 
     private void setOnTouchListeners() {
@@ -269,7 +272,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
 
     private boolean areLinesCorrect() {
         for (int i = 0; i < usedLines.size(); i++) {
-            if (usedLines.get(i).getCorrectLines().get(0) >= 0 &&
+            if (usedLines.get(i).getCorrectLines().get(0) > 0 &&
                     !usedLines.get(i).getCorrectLines().contains(usedLines.get(i).getActualLine())) {
                 return false;
             }
@@ -279,7 +282,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
 
     private void moveIncorrectLinesBack() {
         for (int i = 0; i < lines.size(); i++) {
-            if (lines.get(i).getCorrectLines() != null && !lines.get(i).getCorrectLines().contains(lines.get(i).getActualLine())) {
+            if (lines.get(i).getCorrectLines() != null && !lines.get(i).getCorrectLines().contains(lines.get(i).getActualLine())
+                    && lines.get(i).getCorrectLines().get(0) >= 0) {
                 moveButtonBack(lines.get(i));
             }
         }
@@ -320,8 +324,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         refreshListeners();
 
         checkPuzzleDone();
-
-        lines.get(j).setMoved(true);
     }
 
     private void moveFixedButton(View view, int j, int place) {
@@ -333,7 +335,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         view.setLayoutParams(newPositionParams);
         ((PuzzleButton) view).setActualLine(place);
         view.setEnabled(false);
-        ((PuzzleButton) view).setMoved(true);
 
         usedPlaceholders.add(place);
         usedLines.add(lines.get(j));
@@ -415,7 +416,7 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
                 for (int i = 0; i < lines.size(); i++) {
                     if (!(lines.get(i).getText().equals("") || lines.get(i) == null)) {
                         if (lines.get(i).getCorrectLines().get(0) < 0) {
-                            moveFixedButton(lines.get(i), i, lines.get(i).getCorrectLines().get(0) * (-1) - 2);
+                            moveFixedButton(lines.get(i), i, lines.get(i).getCorrectLines().get(0) * (-1) - 1);
                         }
                     }
                 }
@@ -481,7 +482,11 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
             String[] lineNumbers = lineSplit[1].split(",");
             ArrayList<Integer> correctLines = new ArrayList<>();
             for (String line : lineNumbers) {
-                correctLines.add(Integer.valueOf(line) - 1);
+                if (Integer.valueOf(line) < 0) {
+                    correctLines.add(Integer.valueOf(line));
+                } else {
+                    correctLines.add(Integer.valueOf(line) - 1);
+                }
             }
             lines.get(i + j).setCorrectLines(correctLines);
         }
@@ -491,8 +496,10 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         boolean puzzleDone = true;
         for (PuzzleButton puzzleButton : lines) {
             if (puzzleButton.getCorrectLines() != null && !puzzleButton.getText().toString().equals("")) {
-                if (!puzzleButton.getCorrectLines().contains(puzzleButton.getActualLine())) {
+                if (!puzzleButton.getCorrectLines().contains(puzzleButton.getActualLine()) &&
+                        !(puzzleButton.getCorrectLines().get(0) <= 0)) {
                     puzzleDone = false;
+                    break;
                 }
             }
         }
