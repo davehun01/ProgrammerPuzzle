@@ -36,6 +36,7 @@ import butterknife.ButterKnife;
 public class NewGameActivity extends AppCompatActivity implements NewGameInterface {
 
     @BindView(R.id.newGameActivity_PuzzleDescription) TextView puzzleDescription;
+
     @BindView(R.id.newGameActivity_Line_1) PuzzleButton line_1;
     @BindView(R.id.newGameActivity_Line_2) PuzzleButton line_2;
     @BindView(R.id.newGameActivity_Line_3) PuzzleButton line_3;
