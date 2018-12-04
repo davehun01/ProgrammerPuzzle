@@ -22,8 +22,10 @@ public class MainApplication extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         mainApplication = this;
-        daoSession = new DaoMaster(
-                new DaoMaster.DevOpenHelper(this, "ProgrammerPuzzle.db").getWritableDb()).newSession();
+        daoSession = new DaoMaster(new DaoMaster
+                    .DevOpenHelper(this, "ProgrammerPuzzle.db")
+                    .getWritableDb())
+                    .newSession();
 
         daoManager = new DaoManager(daoSession);
         dataCache = new DataCache(daoManager);

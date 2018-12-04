@@ -10,7 +10,7 @@ def maxLen(arr):#1
 //DESCRIPTION:
 Create a Python function that, given an array of integers, returns length of the largest subarray with sum equal to 0.
 Examples:
-Input: arr[] = {15, -2, 2, -8, 1, 7, 10, 23};
+Input: arr[] = {15, -2, 2, -8, 1, 7, 10, 23}
 Output: 5
 The largest subarray with 0 sum is {-2, 2, -8, 1, 7}
 Input: arr[] = {1, 2, 3}
