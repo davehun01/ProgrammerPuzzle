@@ -94,8 +94,8 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
 
     private List<PuzzleButton> lines = new ArrayList<>();
     private List<Button> placeholders = new ArrayList<>();
-    private List<Integer> usedPlaceholders = new ArrayList<>();
     private List<PuzzleButton> usedLines = new ArrayList<>();
+	private List<Integer> usedPlaceholders = new ArrayList<>();
 
     private MediaPlayer soundPlayer;
     private VibratorEngine vibratorEngine;
@@ -128,12 +128,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         language = intent.getExtras().getString("language");
     }
 
-    private void activityDesign() {
-        ButterKnife.bind(this);
-
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
-    }
-
     private void loadSettings() {
         setContentView(R.layout.activity_new_game);
 
@@ -154,9 +148,10 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         soundOn = sharedPreferences.getBoolean("key_sound", false);
     }
 
-    private void loadPuzzle() {
-        MainActivity.getGameLogic().setNewGameInterface(this);
-        MainActivity.getGameLogic().newPuzzle();
+    private void activityDesign() {
+        ButterKnife.bind(this);
+
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDarkBlue));
     }
 
     private void fillLineList() {
@@ -302,6 +297,11 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         });
     }
 
+    private void loadPuzzle() {
+        MainActivity.getGameLogic().setNewGameInterface(this);
+        MainActivity.getGameLogic().newPuzzle();
+    }
+
     private void moveButton(View view, int j) {
         for (int i = 0; i < 20; i++) {
             if (!usedPlaceholders.contains(i)) {
@@ -402,6 +402,22 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         }
     }
 
+    public void showPuzzle(Puzzle puzzle) {
+        puzzleDescription.setText(puzzle.getDescription());
+
+        String[] puzzleLines = puzzle.getCode().split("\\r?\\n");
+        if (!puzzle.getLanguage().equals("Python")) {
+            tokenizeCode(puzzleLines, false);
+        } else {
+            tokenizeCode(puzzleLines, true);
+        }
+
+        disableEmptyButtons();
+        moveFixedLines();
+
+        MainActivity.PUZZLE_COUNT++;
+    }
+
     private void disableEmptyButtons() {
         for (int i = 0; i < lines.size(); i++) {
             if (lines.get(i).getText() == null || lines.get(i).getText().equals("")) {
@@ -423,22 +439,6 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
                 }
             }
         });
-    }
-
-    public void showPuzzle(Puzzle puzzle) {
-        puzzleDescription.setText(puzzle.getDescription());
-
-        String[] puzzleLines = puzzle.getCode().split("\\r?\\n");
-        if (!puzzle.getLanguage().equals("Python")) {
-            tokenizeCode(puzzleLines, false);
-        } else {
-            tokenizeCode(puzzleLines, true);
-        }
-
-        disableEmptyButtons();
-        moveFixedLines();
-
-        MainActivity.PUZZLE_COUNT++;
     }
 
     private void tokenizeCode(String[] puzzleLines, boolean languagePython) {
@@ -511,40 +511,15 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         }
     }
 
-    private void showPuzzleDoneDialog() {
-        showOkDialog(getResources().getString(R.string.puzzle_completed_text));
-    }
-
     @Override
     public void timeExpired() {
         showTimeExpiredDialog();
-    }
-
-    private void showTimeExpiredDialog() {
-        showOkDialog(getResources().getString(R.string.time_expired_text));
     }
 
     @Override
     public void gameEnd() {
         MainActivity.getGameLogic().end();
         showGameEndDialog();
-    }
-
-    private void showGameEndDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Game is finished. Your score is " + MainActivity.getGameLogic().getScore() + ".")
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        MainActivity.getGameLogic().saveHighScore();
-                        Intent mainMenuIntent = new Intent(NewGameActivity.this, MainActivity.class);
-                        startActivity(mainMenuIntent);
-                    }
-                });
-        AlertDialog alert = builder.create();
-        if(!(NewGameActivity.this).isFinishing()) {
-            alert.show();
-        }
     }
 
     @Override
@@ -602,6 +577,31 @@ public class NewGameActivity extends AppCompatActivity implements NewGameInterfa
         if(!(NewGameActivity.this).isFinishing()) {
             alert.show();
         }
+    }
+
+    private void showGameEndDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Game is finished. Your score is " + MainActivity.getGameLogic().getScore() + ".")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        MainActivity.getGameLogic().saveHighScore();
+                        Intent mainMenuIntent = new Intent(NewGameActivity.this, MainActivity.class);
+                        startActivity(mainMenuIntent);
+                    }
+                });
+        AlertDialog alert = builder.create();
+        if(!(NewGameActivity.this).isFinishing()) {
+            alert.show();
+        }
+    }
+
+    private void showTimeExpiredDialog() {
+        showOkDialog(getResources().getString(R.string.time_expired_text));
+    }
+
+    private void showPuzzleDoneDialog() {
+        showOkDialog(getResources().getString(R.string.puzzle_completed_text));
     }
 
     private void showYesNoDialog(String message) {

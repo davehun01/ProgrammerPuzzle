@@ -49,7 +49,7 @@ public class HowToPlayActivityTest extends ActivityInstrumentationTestCase2<HowT
     }
 
     @Test
-    public void testImages() {
+    public void testImageButtons() {
         getActivity();
         onView(withId(R.id.howToPlayActivity_HintButton))
                 .check(matches(isDisplayed()));
