@@ -1,6 +1,6 @@
 package com.example.dave.programmerpuzzle.Persistence.Entities;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
